@@ -50,3 +50,14 @@ describe('buildConfig()', () => {
     expect(buildConfig('columnSpan')).toStrictEqual({ all: { columnSpan: 'all' }, none: { columnSpan: 'none' } })
   })
 })
+
+describe('given a pluginUtilities object', () => {
+  test.todo('generates default utilities and responsive variants')
+  test.todo('variants can be customized')
+  test.todo('utilities can be customized')
+  test.todo('modifier can contain fractions')
+  test.todo('uses defaultValues as fallback')
+  test.todo('respects tailwind\'s important config option')
+  test.todo('generates negative utilities') // Probably redundant now that handleName() is tested
+  test.todo('generates mixed utilities correctly') // Probably redundant now that handleName() is tested
+})
