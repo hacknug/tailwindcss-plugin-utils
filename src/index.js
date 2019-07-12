@@ -19,18 +19,15 @@ export const buildConfig = (themeKey, ...fallbackKeys) => {
 }
 
 export const buildConfigFromTheme = (themeKey, ...fallbackKeys) => {
-  const buildObject = ([modifier, value]) => [modifier, { [themeKey]: value }]
   const getThemeSettings = (themeKey, fallbackKeys) => {
     const [newThemeKey, ...newFallbackKeys] = fallbackKeys || []
-
-    return theme(themeKey, false) || (fallbackKeys.length && getThemeSettings(newThemeKey, [...newFallbackKeys]))
+    return theme(themeKey, false) || (fallbackKeys.length && getThemeSettings(newThemeKey, newFallbackKeys))
   }
 
   const themeSettings = getThemeSettings(themeKey, fallbackKeys)
   const themeObject = _.isArray(themeSettings) ? _.zipObject(themeSettings, themeSettings) : themeSettings
-  const themeEntries = themeSettings && Object
-    .entries(flatten(themeObject, FLATTEN_CONFIG))
-    .map(entry => buildObject(entry))
+  const themeEntries = themeSettings && Object.entries(flatten(themeObject, FLATTEN_CONFIG))
+    .map(([modifier, value]) => [modifier, { [themeKey]: value }])
 
   return themeSettings ? _.fromPairs(themeEntries) : false
 }
