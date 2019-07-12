@@ -1,13 +1,27 @@
+const resolveConfig = require('tailwindcss/resolveConfig')
+const tailwindConfig = require('./tailwind.config.js')
+
+const config = resolveConfig(tailwindConfig)
+
 module.exports = {
   globals: {
-    theme: (themeKey, fallbackValue) => {
-      const mockConfig = {
-        backgroundColor: { tailwind: '#38b2ac' },
-        columnCount: [2, 4],
-      }
+    /** // TODO look into how to use core methods directly
+     * Plugin functions receive a single object argument that can be destructured
+     * into several helper functions: https://tailwindcss.com/docs/plugins
+     */
+    addUtilities: () => {},
+    addComponents: () => {},
+    addBase: () => {},
+    addVariant: () => {},
+    e: () => {},
+    prefix: () => {},
+    theme: (themeKey, fallbackValue) => config.theme[themeKey] || fallbackValue,
+    variants: () => {},
+    config,
 
-      return mockConfig[themeKey] || fallbackValue
-    },
+    /**
+     * These utils still depend on some things
+     */
     defaultValues: {
       columnSpan: ['none', 'all'],
     },

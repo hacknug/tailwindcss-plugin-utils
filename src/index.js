@@ -21,7 +21,10 @@ export const buildConfig = (themeKey, ...fallbackKeys) => {
 export const buildConfigFromTheme = (themeKey, ...fallbackKeys) => {
   const getThemeSettings = (themeKey, fallbackKeys) => {
     const [newThemeKey, ...newFallbackKeys] = fallbackKeys || []
-    return theme(themeKey, false) || (fallbackKeys.length && getThemeSettings(newThemeKey, newFallbackKeys))
+    return (
+      (!_.isEmpty(theme(themeKey, false)) && theme(themeKey, false)) ||
+      (fallbackKeys.length && getThemeSettings(newThemeKey, newFallbackKeys))
+    )
   }
 
   const themeSettings = getThemeSettings(themeKey, fallbackKeys)
