@@ -5,7 +5,7 @@ const config = resolveConfig(tailwindConfig)
 
 module.exports = {
   globals: {
-    /** // TODO look into how to use core methods directly
+    /** // TODO look into using core methods directly
      * Plugin functions receive a single object argument that can be destructured
      * into several helper functions: https://tailwindcss.com/docs/plugins
      */
