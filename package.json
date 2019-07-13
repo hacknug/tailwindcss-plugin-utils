@@ -1,15 +1,32 @@
 {
-  "name": "tailwindcss-plugin-utils",
+  "name": "@hacknug/tailwindcss-plugin-utils",
   "version": "0.1.0",
   "description": "",
+  "keywords": [
+    "tailwind",
+    "tailwind css",
+    "tailwindcss"
+  ],
+  "homepage": "https://github.com/hacknug/tailwindcss-plugin-utils#readme",
+  "bugs": {
+    "url": "https://github.com/hacknug/tailwindcss-plugin-utils/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hacknug/tailwindcss-plugin-utils.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Nestor Vera",
+    "email": "nestorvera@me.com",
+    "url": "https://nestor.rip/"
+  },
   "main": "src/index.js",
   "scripts": {
     "dev": "jest --watchAll",
     "test": "jest"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.5.4",
     "@babel/preset-env": "^7.5.4",
