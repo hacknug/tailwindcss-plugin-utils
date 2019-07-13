@@ -21,13 +21,15 @@
     "email": "nestorvera@me.com",
     "url": "https://nestor.rip/"
   },
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
+    "prebabelify": "rimraf lib",
+    "babelify": "babel src --out-dir lib --copy-files",
     "dev": "jest --watchAll",
     "test": "jest"
   },
-  "dependencies": {},
   "devDependencies": {
+    "@babel/cli": "^7.5.0",
     "@babel/core": "^7.5.4",
     "@babel/preset-env": "^7.5.4",
     "babel-jest": "^24.8.0",
@@ -43,6 +45,7 @@
     "jest-matcher-css": "^1.0.3",
     "lodash": "^4.17.14",
     "postcss": "^7.0.16",
+    "rimraf": "^2.6.3",
     "tailwindcss": "^1.0.1"
   }
 }
