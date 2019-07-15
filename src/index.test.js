@@ -7,11 +7,24 @@ import {
   // buildConfigFromArray,
 } from './index'
 
+import resolveConfig from 'tailwindcss/resolveConfig'
+import tailwindConfig from '../tailwind.config.js'
+
 /**
  * MOCKS:
  * - theme()
  * - defaultValues{}
  */
+
+const config = resolveConfig(tailwindConfig)
+const theme = (themeKey, fallbackValue) => {
+  return config.theme[themeKey] || fallbackValue
+}
+
+const defaultValues = {
+  columnSpan: ['none', 'all'],
+  columnGap: { 4: '1rem', 8: '2rem' },
+}
 
 describe('CONSTANTS', () => {
   test('FLATTEN_CONFIG exists && holds the settings', () => {
@@ -38,19 +51,19 @@ describe('handleName()', () => {
 
 describe('buildConfig()', () => {
   test('builds from theme() object', () => {
-    expect(buildConfig('backgroundColor')).toStrictEqual({ tailwind: { backgroundColor: '#38b2ac' } })
+    expect(buildConfig(theme, defaultValues, 'backgroundColor')).toStrictEqual({ tailwind: { backgroundColor: '#38b2ac' } })
   })
   test('builds from theme() object using fallbacks', () => {
-    expect(buildConfig('textColor', 'backgroundColor')).toStrictEqual({ tailwind: { textColor: '#38b2ac' } })
+    expect(buildConfig(theme, defaultValues, 'textColor', 'backgroundColor')).toStrictEqual({ tailwind: { textColor: '#38b2ac' } })
   })
   test('builds from theme() array', () => {
-    expect(buildConfig('columnCount')).toStrictEqual({ 2: { columnCount: 2 }, 4: { columnCount: 4 } })
+    expect(buildConfig(theme, defaultValues, 'columnCount')).toStrictEqual({ 2: { columnCount: 2 }, 4: { columnCount: 4 } })
   })
   test('builds from the defaultConfig object', () => {
-    expect(buildConfig('columnSpan')).toStrictEqual({ all: { columnSpan: 'all' }, none: { columnSpan: 'none' } })
+    expect(buildConfig(theme, defaultValues, 'columnSpan')).toStrictEqual({ all: { columnSpan: 'all' }, none: { columnSpan: 'none' } })
   })
   test('builds from the defaultConfig object using fallbacks', () => {
-    expect(buildConfig('gap', 'columnGap')).toStrictEqual({ 4: { gap: '1rem' }, 8: { gap: '2rem' } })
+    expect(buildConfig(theme, defaultValues, 'gap', 'columnGap')).toStrictEqual({ 4: { gap: '1rem' }, 8: { gap: '2rem' } })
   })
 })
 

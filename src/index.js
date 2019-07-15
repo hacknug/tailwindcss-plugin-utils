@@ -30,12 +30,12 @@ export function prefixNegativeModifiers (base, modifier) {
  * @param  {...any} fallbackKeys
  */
 
-export function buildConfig (themeKey, ...fallbackKeys) {
-  const themeHoldsConfig = getThemeSettings(themeKey, fallbackKeys)
+export function buildConfig (theme, defaultValues, themeKey, ...fallbackKeys) {
+  const themeHoldsConfig = getThemeSettings(theme, themeKey, fallbackKeys)
 
   const settings = themeHoldsConfig
-    ? getThemeSettings(themeKey, fallbackKeys)
-    : getPluginSettings(themeKey, fallbackKeys)
+    ? getThemeSettings(theme, themeKey, fallbackKeys)
+    : getPluginSettings(defaultValues, themeKey, fallbackKeys)
   const object = _.isArray(settings) ? _.zipObject(settings, settings) : settings
   const entries = settings && Object.entries(themeHoldsConfig ? flatten(object, FLATTEN_CONFIG) : object)
     .map(([modifier, value]) => [modifier, { [themeKey]: value }])
@@ -43,20 +43,20 @@ export function buildConfig (themeKey, ...fallbackKeys) {
   return settings ? _.fromPairs(entries) : false
 }
 
-export function getThemeSettings (themeKey, fallbackKeys = []) {
+export function getThemeSettings (theme, themeKey, fallbackKeys = []) {
   const [newThemeKey, ...newFallbackKeys] = fallbackKeys
 
   return (
     (!_.isEmpty(theme(themeKey, false)) && theme(themeKey, false)) ||
-    (fallbackKeys.length && getThemeSettings(newThemeKey, newFallbackKeys))
+    (fallbackKeys.length && getThemeSettings(theme, newThemeKey, newFallbackKeys))
   )
 }
 
-export function getPluginSettings (themeKey, fallbackKeys = []) {
+export function getPluginSettings (defaultValues, themeKey, fallbackKeys = []) {
   const [newThemeKey, ...newFallbackKeys] = fallbackKeys
 
   return (
     (!_.isEmpty(defaultValues[themeKey]) && defaultValues[themeKey]) ||
-    (fallbackKeys.length && getPluginSettings(newThemeKey, newFallbackKeys))
+    (fallbackKeys.length && getPluginSettings(defaultValues, newThemeKey, newFallbackKeys))
   )
 }
