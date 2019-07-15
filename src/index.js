@@ -13,14 +13,14 @@ export const FLATTEN_CONFIG = { delimiter: '-', maxDepth: 2 }
  * @param {*} base
  */
 
-export const handleName = (className, base) => {
+export function handleName (className, base) {
   const split = className.split(`${base}-`)
   const prefixedName = `${split[0]}${prefixNegativeModifiers(base, split[1])}`
 
   return prefixedName.split('-default').join('')
 }
 
-export const prefixNegativeModifiers = (base, modifier) => {
+export function prefixNegativeModifiers (base, modifier) {
   return _.startsWith(modifier, '-') ? `-${base}-${modifier.slice(1)}` : `${base}-${modifier}`
 }
 
@@ -30,10 +30,12 @@ export const prefixNegativeModifiers = (base, modifier) => {
  * @param  {...any} fallbackKeys
  */
 
-export const buildConfig = (themeKey, ...fallbackKeys) => {
+export function buildConfig (themeKey, ...fallbackKeys) {
   const themeHoldsConfig = getThemeSettings(themeKey, fallbackKeys)
 
-  const settings = themeHoldsConfig ? getThemeSettings(themeKey, fallbackKeys) : getPluginSettings(themeKey, fallbackKeys)
+  const settings = themeHoldsConfig
+    ? getThemeSettings(themeKey, fallbackKeys)
+    : getPluginSettings(themeKey, fallbackKeys)
   const object = _.isArray(settings) ? _.zipObject(settings, settings) : settings
   const entries = settings && Object.entries(themeHoldsConfig ? flatten(object, FLATTEN_CONFIG) : object)
     .map(([modifier, value]) => [modifier, { [themeKey]: value }])
@@ -41,7 +43,7 @@ export const buildConfig = (themeKey, ...fallbackKeys) => {
   return settings ? _.fromPairs(entries) : false
 }
 
-export const getThemeSettings = (themeKey, fallbackKeys = []) => {
+export function getThemeSettings (themeKey, fallbackKeys = []) {
   const [newThemeKey, ...newFallbackKeys] = fallbackKeys
 
   return (
@@ -50,7 +52,7 @@ export const getThemeSettings = (themeKey, fallbackKeys = []) => {
   )
 }
 
-export const getPluginSettings = (themeKey, fallbackKeys = []) => {
+export function getPluginSettings (themeKey, fallbackKeys = []) {
   const [newThemeKey, ...newFallbackKeys] = fallbackKeys
 
   return (
