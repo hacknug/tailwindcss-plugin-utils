@@ -46,8 +46,11 @@ describe('buildConfig()', () => {
   test('builds from theme() array', () => {
     expect(buildConfig('columnCount')).toStrictEqual({ 2: { columnCount: 2 }, 4: { columnCount: 4 } })
   })
-  test('builds from the defaultConfig', () => {
+  test('builds from the defaultConfig object', () => {
     expect(buildConfig('columnSpan')).toStrictEqual({ all: { columnSpan: 'all' }, none: { columnSpan: 'none' } })
+  })
+  test('builds from the defaultConfig object using fallbacks', () => {
+    expect(buildConfig('gap', 'columnGap')).toStrictEqual({ 4: { gap: '1rem' }, 8: { gap: '2rem' } })
   })
 })
 

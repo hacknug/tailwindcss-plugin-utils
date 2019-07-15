@@ -24,6 +24,7 @@ module.exports = {
      */
     defaultValues: {
       columnSpan: ['none', 'all'],
+      columnGap: { 4: '1rem', 8: '2rem' },
     },
   },
 }
