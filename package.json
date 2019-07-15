@@ -23,10 +23,16 @@
   },
   "main": "lib/index.js",
   "scripts": {
-    "prebabelify": "rimraf lib",
-    "babelify": "babel src --out-dir lib --copy-files",
+    "prebuild": "rimraf lib",
+    "build": "babel src --out-dir lib --ignore 'src/**/*.test.js'",
+    "prepublish": "npm run build",
+    "release": "release-it",
     "dev": "jest --watchAll",
     "test": "jest"
+  },
+  "dependencies": {
+    "flat": "^4.1.0",
+    "lodash": "^4.17.14"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.0",
@@ -40,11 +46,10 @@
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
-    "flat": "^4.1.0",
     "jest": "^24.8.0",
     "jest-matcher-css": "^1.0.3",
-    "lodash": "^4.17.14",
     "postcss": "^7.0.16",
+    "release-it": "^12.3.3",
     "rimraf": "^2.6.3",
     "tailwindcss": "^1.0.1"
   }
