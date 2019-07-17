@@ -10,7 +10,7 @@ import {
 } from './index'
 
 import resolveConfig from 'tailwindcss/resolveConfig'
-import tailwindConfig from '../tailwind.config.js'
+import tailwindConfig from '~/tailwind.config.js'
 
 import escapeClassName from 'tailwindcss/lib/util/escapeClassName'
 import prefixSelector from 'tailwindcss/lib/util/prefixSelector'
@@ -65,23 +65,23 @@ describe('handleName()', () => {
 
 describe('buildConfig()', () => {
   test('from theme() object', () => {
-    expect(buildConfig(coreUtils, 'backgroundColor'))
+    expect(buildConfig(coreUtils, tailwindConfig, 'backgroundColor'))
       .toStrictEqual({ tailwind: { backgroundColor: '#38b2ac' } })
   })
   test('from theme() object using fallbacks', () => {
-    expect(buildConfig(coreUtils, 'textColor', 'backgroundColor'))
+    expect(buildConfig(coreUtils, tailwindConfig, 'textColor', 'backgroundColor'))
       .toStrictEqual({ tailwind: { textColor: '#38b2ac' } })
   })
   test('from theme() array', () => {
-    expect(buildConfig(coreUtils, 'columnCount'))
+    expect(buildConfig(coreUtils, tailwindConfig, 'columnCount'))
       .toStrictEqual({ 2: { columnCount: 2 }, 4: { columnCount: 4 } })
   })
   test('from defaultConfig object', () => {
-    expect(buildConfig(coreUtils, 'columnSpan'))
+    expect(buildConfig(coreUtils, tailwindConfig, 'columnSpan'))
       .toStrictEqual({ all: { columnSpan: 'all' }, none: { columnSpan: 'none' } })
   })
   test('from defaultConfig object using fallbacks', () => {
-    expect(buildConfig(coreUtils, 'gap', 'columnGap'))
+    expect(buildConfig(coreUtils, tailwindConfig, 'gap', 'columnGap'))
       .toStrictEqual({ 4: { gap: '1rem' }, 8: { gap: '2rem' } })
   })
 })
@@ -102,7 +102,7 @@ describe('generatePluginCss()', () => {
       .col-span-all { column-span: all }
     `
 
-    return generatePluginCss(testConfig, pluginOptions)
+    return generatePluginCss(tailwindConfig, testConfig, pluginOptions)
       .then(css => expect(css).toMatchCss(expectedCss))
   })
 
@@ -132,7 +132,7 @@ describe('generatePluginCss()', () => {
       }
     `
 
-    return generatePluginCss(testConfig, pluginOptions)
+    return generatePluginCss(tailwindConfig, testConfig, pluginOptions)
       .then(css => expect(css).toMatchCss(expectedCss))
   })
 })

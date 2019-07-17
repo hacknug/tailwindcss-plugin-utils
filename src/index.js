@@ -3,7 +3,7 @@ import flatten from 'flat'
 import postcss from 'postcss'
 import tailwindcss from 'tailwindcss'
 // import resolveConfig from 'tailwindcss/resolveConfig'
-import tailwindConfig from '~/tailwind.config.js'
+// import tailwindConfig from '~/tailwind.config.js'
 
 // const config = resolveConfig(tailwindConfig)
 
@@ -38,9 +38,8 @@ export const prefixNegativeModifiers = (base, modifier) => {
  * @param {...any} fallbackKeys
  */
 
-export const buildConfig = (coreUtils, themeKey, ...fallbackKeys) => {
-  const { theme } = coreUtils
-  const themeSettings = getSettings(theme, themeKey, fallbackKeys)
+export const buildConfig = (coreUtils, tailwindConfig, themeKey, ...fallbackKeys) => {
+  const themeSettings = getSettings(coreUtils.theme, themeKey, fallbackKeys)
 
   const settings = themeSettings || getSettings(tailwindConfig.theme, themeKey, fallbackKeys)
   const object = Array.isArray(settings) ? _.zipObject(settings, settings) : settings
@@ -88,12 +87,12 @@ export const something = (pluginUtilities, coreUtils) => {
 }
 
 /**
- *
+ * generatePluginCss()
  * @param {*} testConfig
  * @param {*} pluginOptions
  */
 
-export const generatePluginCss = (testConfig = {}, pluginOptions = {}) => {
+export const generatePluginCss = (tailwindConfig = {}, testConfig = {}, pluginOptions = {}) => {
   const sandboxConfig = {
     corePlugins: false,
     variants: [],

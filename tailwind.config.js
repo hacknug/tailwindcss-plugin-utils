@@ -1,4 +1,4 @@
-const plugin = require('./src/plugin.js')
+const plugin = require('~/src/plugin.js')
 const pluginOptions = {}
 
 module.exports = {
