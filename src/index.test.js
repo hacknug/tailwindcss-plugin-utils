@@ -64,26 +64,24 @@ describe('handleName()', () => {
 })
 
 describe('buildConfig()', () => {
-  const defaults = [defaultValues, coreUtils]
-
   test('from theme() object', () => {
-    expect(buildConfig(...defaults, 'backgroundColor'))
+    expect(buildConfig(coreUtils, 'backgroundColor'))
       .toStrictEqual({ tailwind: { backgroundColor: '#38b2ac' } })
   })
   test('from theme() object using fallbacks', () => {
-    expect(buildConfig(...defaults, 'textColor', 'backgroundColor'))
+    expect(buildConfig(coreUtils, 'textColor', 'backgroundColor'))
       .toStrictEqual({ tailwind: { textColor: '#38b2ac' } })
   })
   test('from theme() array', () => {
-    expect(buildConfig(...defaults, 'columnCount'))
+    expect(buildConfig(coreUtils, 'columnCount'))
       .toStrictEqual({ 2: { columnCount: 2 }, 4: { columnCount: 4 } })
   })
   test('from defaultConfig object', () => {
-    expect(buildConfig(...defaults, 'columnSpan'))
+    expect(buildConfig(coreUtils, 'columnSpan'))
       .toStrictEqual({ all: { columnSpan: 'all' }, none: { columnSpan: 'none' } })
   })
   test('from defaultConfig object using fallbacks', () => {
-    expect(buildConfig(...defaults, 'gap', 'columnGap'))
+    expect(buildConfig(coreUtils, 'gap', 'columnGap'))
       .toStrictEqual({ 4: { gap: '1rem' }, 8: { gap: '2rem' } })
   })
 })
@@ -96,6 +94,9 @@ describe('generatePluginCss()', () => {
     const expectedCss = `
       .col-count-2 { column-count: 2 }
       .col-count-4 { column-count: 4 }
+
+      .col-gap-4 { column-gap: 1rem }
+      .col-gap-8 { column-gap: 2rem }
 
       .col-span-none { column-span: none }
       .col-span-all { column-span: all }
@@ -113,12 +114,18 @@ describe('generatePluginCss()', () => {
       .col-count-2 { column-count: 2 }
       .col-count-4 { column-count: 4 }
 
+      .col-gap-4 { column-gap: 1rem }
+      .col-gap-8 { column-gap: 2rem }
+
       .col-span-none { column-span: none }
       .col-span-all { column-span: all }
 
       @media (min-width: 640px) {
         .sm\\:col-count-2 { column-count: 2 }
         .sm\\:col-count-4 { column-count: 4 }
+
+        .sm\\:col-gap-4 { column-gap: 1rem }
+        .sm\\:col-gap-8 { column-gap: 2rem }
 
         .sm\\:col-span-none { column-span: none }
         .sm\\:col-span-all { column-span: all }
@@ -130,17 +137,17 @@ describe('generatePluginCss()', () => {
   })
 })
 
+// TODO: Use tailwind.config.js to hold the plugin's default values
 describe('given a pluginUtilities object', () => {
-  // const defaults = [defaultValues, coreUtils]
   // const pluginUtilities = {
-  //   'col-count': buildConfig(...defaults, 'columnCount'),
-  //   'col-gap': buildConfig(...defaults, 'columnGap', 'gap', 'gridGap'),
-  //   'col-w': buildConfig(...defaults, 'columnWidth'),
-  //   'col-rule-color': buildConfig(...defaults, 'columnRuleColor', 'borderColor'),
-  //   'col-rule-width': buildConfig(...defaults, 'columnRuleWidth', 'borderWidth'),
-  //   'col-rule-style': buildConfig(...defaults, 'columnRuleStyle'),
-  //   'col-fill': buildConfig(...defaults, 'columnFill'),
-  //   'col-span': buildConfig(...defaults, 'columnSpan'),
+  //   'col-count': buildConfig(coreUtils, 'columnCount'),
+  //   'col-gap': buildConfig(coreUtils, 'columnGap', 'gap', 'gridGap'),
+  //   'col-w': buildConfig(coreUtils, 'columnWidth'),
+  //   'col-rule-color': buildConfig(coreUtils, 'columnRuleColor', 'borderColor'),
+  //   'col-rule-width': buildConfig(coreUtils, 'columnRuleWidth', 'borderWidth'),
+  //   'col-rule-style': buildConfig(coreUtils, 'columnRuleStyle'),
+  //   'col-fill': buildConfig(coreUtils, 'columnFill'),
+  //   'col-span': buildConfig(coreUtils, 'columnSpan'),
   // }
 
   test.todo('generates default utilities and responsive variants')

@@ -1,15 +1,11 @@
 import _ from 'lodash'
 import flatten from 'flat'
-
 import postcss from 'postcss'
 import tailwindcss from 'tailwindcss'
+// import resolveConfig from 'tailwindcss/resolveConfig'
+import tailwindConfig from '~/tailwind.config.js'
 
-import plugin from './plugin.js'
-
-import resolveConfig from 'tailwindcss/resolveConfig'
-import tailwindConfig from '../tailwind.config.js'
-
-const config = resolveConfig(tailwindConfig)
+// const config = resolveConfig(tailwindConfig)
 
 /**
  * CONSTANTS
@@ -42,11 +38,11 @@ export const prefixNegativeModifiers = (base, modifier) => {
  * @param {...any} fallbackKeys
  */
 
-export const buildConfig = (defaultValues, coreUtils, themeKey, ...fallbackKeys) => {
+export const buildConfig = (coreUtils, themeKey, ...fallbackKeys) => {
   const { theme } = coreUtils
   const themeSettings = getSettings(theme, themeKey, fallbackKeys)
 
-  const settings = themeSettings || getSettings(defaultValues, themeKey, fallbackKeys)
+  const settings = themeSettings || getSettings(tailwindConfig.theme, themeKey, fallbackKeys)
   const object = Array.isArray(settings) ? _.zipObject(settings, settings) : settings
   const entries = settings && Object.entries(themeSettings ? flatten(object, FLATTEN_CONFIG) : object)
     .map(([modifier, value]) => [modifier, { [themeKey]: value }])
@@ -99,12 +95,15 @@ export const something = (pluginUtilities, coreUtils) => {
 
 export const generatePluginCss = (testConfig = {}, pluginOptions = {}) => {
   const sandboxConfig = {
-    plugins: [plugin(pluginOptions)],
     corePlugins: false,
     variants: [],
   }
   const postcssPlugins = [
-    tailwindcss({ ...config, ...sandboxConfig, ...testConfig }),
+    tailwindcss({
+      ...tailwindConfig,
+      ...sandboxConfig,
+      ...testConfig,
+    }),
   ]
 
   return postcss(postcssPlugins)

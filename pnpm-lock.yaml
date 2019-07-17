@@ -1,4 +1,5 @@
 dependencies:
+  babel-plugin-root-import: 6.3.0
   flat: 4.1.0
   lodash: 4.17.14
 devDependencies:
@@ -1332,6 +1333,12 @@ packages:
       node: '>= 6'
     resolution:
       integrity: sha512-3pKNH6hMt9SbOv0F3WVmy5CWQ4uogS3k0GY5XLyQHJ9EGpAT9XWkFd2ZiXXtkwFHdAHa5j7w7kfxSP5lAIwu7w==
+  /babel-plugin-root-import/6.3.0:
+    dependencies:
+      slash: 1.0.0
+    dev: false
+    resolution:
+      integrity: sha512-F8xCST6o6zvfvDQRHqwAHL9ia4b8wmdDMgbGiQ+tncEcP3aSi7tTJIqeI/0hqt++aoZtCpQzsLN8QVU/CBRD/A==
   /babel-preset-jest/24.6.0_@babel+core@7.5.4:
     dependencies:
       '@babel/core': 7.5.4
@@ -5434,6 +5441,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-ZcYcZcT69nSLAR2oLN2JwNmLkJEKGooFMCdvOkFrToUt/WfcRWqhIg4P4KwY4dmLbuyXIx4o4YmPsvMRJYJd/w==
+  /slash/1.0.0:
+    dev: false
+    engines:
+      node: '>=0.10.0'
+    resolution:
+      integrity: sha1-xB8vbDn8FtHNF61LXYlhFK5HDVU=
   /slash/2.0.0:
     dev: true
     engines:
@@ -6260,6 +6273,7 @@ specifiers:
   '@babel/core': ^7.5.4
   '@babel/preset-env': ^7.5.4
   babel-jest: ^24.8.0
+  babel-plugin-root-import: ^6.3.0
   eslint: ^6.0.1
   eslint-config-standard: ^13.0.1
   eslint-import-resolver-node: ^0.3.2
