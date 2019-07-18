@@ -1,5 +1,5 @@
-import tailwindConfig from '~/tailwind.config.js'
-import { buildPlugin } from '~/src/index.js'
+import tailwindConfig from '../tailwind.config.js'
+import { buildPlugin } from './index.js'
 
 module.exports = function (pluginOptions) {
   return function (coreUtils) {

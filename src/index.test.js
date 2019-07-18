@@ -6,7 +6,7 @@ import {
 } from './index'
 
 import resolveConfig from 'tailwindcss/resolveConfig'
-import tailwindConfig from '~/tailwind.config.js'
+import tailwindConfig from '../tailwind.config.js'
 
 import escapeClassName from 'tailwindcss/lib/util/escapeClassName'
 import prefixSelector from 'tailwindcss/lib/util/prefixSelector'
