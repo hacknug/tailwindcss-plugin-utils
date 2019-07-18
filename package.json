@@ -53,5 +53,9 @@
     "release-it": "^12.3.3",
     "rimraf": "^2.6.3",
     "tailwindcss": "^1.0.5"
+  },
+  "peerDependencies": {
+    "postcss": "^7.0.x",
+    "tailwindcss": "^1.0.x"
   }
 }
