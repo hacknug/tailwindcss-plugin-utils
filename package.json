@@ -32,7 +32,9 @@
   },
   "dependencies": {
     "flat": "^4.1.0",
-    "lodash": "^4.17.14"
+    "lodash": "^4.17.14",
+    "postcss": "^7.0.17",
+    "tailwindcss": "^1.0.5"
   },
   "devDependencies": {
     "@babel/cli": "7.5.5",
@@ -49,13 +51,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "jest": "^24.8.0",
     "jest-matcher-css": "^1.1.0",
-    "postcss": "^7.0.17",
     "release-it": "^12.3.3",
-    "rimraf": "^2.6.3",
-    "tailwindcss": "^1.0.5"
-  },
-  "peerDependencies": {
-    "postcss": "^7.0.x",
-    "tailwindcss": "^1.0.x"
+    "rimraf": "^2.6.3"
   }
 }
