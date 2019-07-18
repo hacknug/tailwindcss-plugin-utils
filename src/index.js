@@ -2,10 +2,6 @@ import _ from 'lodash'
 import flatten from 'flat'
 import postcss from 'postcss'
 import tailwindcss from 'tailwindcss'
-// import resolveConfig from 'tailwindcss/resolveConfig'
-// import tailwindConfig from '~/tailwind.config.js'
-
-// const config = resolveConfig(tailwindConfig)
 
 /**
  * CONSTANTS
@@ -91,6 +87,7 @@ export const buildPlugin = (tailwindConfig, coreUtils, pluginRecipe) => {
 
 /**
  * generatePluginCss()
+ * @param {*} tailwindConfig
  * @param {*} testConfig
  * @param {*} pluginOptions
  */
