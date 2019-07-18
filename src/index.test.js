@@ -1,12 +1,8 @@
 import {
   FLATTEN_CONFIG,
   handleName,
-  // prefixNegativeModifiers,
   buildConfig,
-  // buildConfigFromTheme,
-  // buildConfigFromArray,
   generatePluginCss,
-  // something,
 } from './index'
 
 import resolveConfig from 'tailwindcss/resolveConfig'
@@ -19,8 +15,7 @@ expect.extend({ toMatchCss: require('jest-matcher-css') })
 
 /**
  * MOCKS:
- * - theme()
- * - defaultValues{}
+ * - coreUtils()
  */
 
 const config = resolveConfig(tailwindConfig)
@@ -29,11 +24,6 @@ const coreUtils = {
   theme: (themeKey, fallbackValue) => config.theme[themeKey] || fallbackValue,
   prefix: (selector) => prefixSelector(config.prefix, selector),
   e: escapeClassName,
-}
-
-const defaultValues = {
-  columnSpan: ['none', 'all'],
-  columnGap: { 4: '1rem', 8: '2rem' },
 }
 
 /**
@@ -65,23 +55,23 @@ describe('handleName()', () => {
 
 describe('buildConfig()', () => {
   test('from theme() object', () => {
-    expect(buildConfig(coreUtils, tailwindConfig, 'backgroundColor'))
+    expect(buildConfig(tailwindConfig, coreUtils, 'backgroundColor'))
       .toStrictEqual({ tailwind: { backgroundColor: '#38b2ac' } })
   })
   test('from theme() object using fallbacks', () => {
-    expect(buildConfig(coreUtils, tailwindConfig, 'textColor', 'backgroundColor'))
+    expect(buildConfig(tailwindConfig, coreUtils, 'textColor', 'backgroundColor'))
       .toStrictEqual({ tailwind: { textColor: '#38b2ac' } })
   })
   test('from theme() array', () => {
-    expect(buildConfig(coreUtils, tailwindConfig, 'columnCount'))
+    expect(buildConfig(tailwindConfig, coreUtils, 'columnCount'))
       .toStrictEqual({ 2: { columnCount: 2 }, 4: { columnCount: 4 } })
   })
   test('from defaultConfig object', () => {
-    expect(buildConfig(coreUtils, tailwindConfig, 'columnSpan'))
+    expect(buildConfig(tailwindConfig, coreUtils, 'columnSpan'))
       .toStrictEqual({ all: { columnSpan: 'all' }, none: { columnSpan: 'none' } })
   })
   test('from defaultConfig object using fallbacks', () => {
-    expect(buildConfig(coreUtils, tailwindConfig, 'gap', 'columnGap'))
+    expect(buildConfig(tailwindConfig, coreUtils, 'gap', 'columnGap'))
       .toStrictEqual({ 4: { gap: '1rem' }, 8: { gap: '2rem' } })
   })
 })
@@ -139,17 +129,6 @@ describe('generatePluginCss()', () => {
 
 // TODO: Use tailwind.config.js to hold the plugin's default values
 describe('given a pluginUtilities object', () => {
-  // const pluginUtilities = {
-  //   'col-count': buildConfig(coreUtils, 'columnCount'),
-  //   'col-gap': buildConfig(coreUtils, 'columnGap', 'gap', 'gridGap'),
-  //   'col-w': buildConfig(coreUtils, 'columnWidth'),
-  //   'col-rule-color': buildConfig(coreUtils, 'columnRuleColor', 'borderColor'),
-  //   'col-rule-width': buildConfig(coreUtils, 'columnRuleWidth', 'borderWidth'),
-  //   'col-rule-style': buildConfig(coreUtils, 'columnRuleStyle'),
-  //   'col-fill': buildConfig(coreUtils, 'columnFill'),
-  //   'col-span': buildConfig(coreUtils, 'columnSpan'),
-  // }
-
   test.todo('generates default utilities and responsive variants')
   test.todo('variants can be customized')
   test.todo('utilities can be customized')

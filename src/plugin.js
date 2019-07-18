@@ -1,14 +1,12 @@
 import tailwindConfig from '~/tailwind.config.js'
-import { buildConfig, something } from '~/src/index.js'
+import { buildPlugin } from '~/src/index.js'
 
 module.exports = function (pluginOptions) {
   return function (coreUtils) {
-    const pluginUtilities = {
-      'col-count': buildConfig(coreUtils, tailwindConfig, 'columnCount'),
-      'col-gap': buildConfig(coreUtils, tailwindConfig, 'columnGap', 'gap', 'gridGap'),
-      'col-span': buildConfig(coreUtils, tailwindConfig, 'columnSpan'),
-    }
-
-    return something(pluginUtilities, coreUtils)
+    return buildPlugin(tailwindConfig, coreUtils, {
+      'col-count': ['columnCount'],
+      'col-gap': ['columnGap', 'gap', 'gridGap'],
+      'col-span': ['columnSpan'],
+    })
   }
 }

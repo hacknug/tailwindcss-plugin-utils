@@ -38,13 +38,14 @@ export const prefixNegativeModifiers = (base, modifier) => {
  * @param {...any} fallbackKeys
  */
 
-export const buildConfig = (coreUtils, tailwindConfig, themeKey, ...fallbackKeys) => {
+export const buildConfig = (tailwindConfig, coreUtils, themeKey, ...fallbackKeys) => {
+  const buildFromEntries = ([modifier, value]) => [modifier, { [themeKey]: value }]
   const themeSettings = getSettings(coreUtils.theme, themeKey, fallbackKeys)
 
   const settings = themeSettings || getSettings(tailwindConfig.theme, themeKey, fallbackKeys)
   const object = Array.isArray(settings) ? _.zipObject(settings, settings) : settings
-  const entries = settings && Object.entries(themeSettings ? flatten(object, FLATTEN_CONFIG) : object)
-    .map(([modifier, value]) => [modifier, { [themeKey]: value }])
+  const flatObject = themeSettings ? flatten(object, FLATTEN_CONFIG) : object
+  const entries = settings && Object.entries(flatObject).map(buildFromEntries)
 
   return settings ? _.fromPairs(entries) : false
 }
@@ -60,15 +61,17 @@ export const getSettings = (theme, themeKey, fallbackKeys = []) => {
 }
 
 /**
- *
+ * buildPlugin()
  * @param {*} pluginUtilities
  * @param {*} coreUtils
  */
 
-export const something = (pluginUtilities, coreUtils) => {
+export const buildPlugin = (tailwindConfig, coreUtils, pluginRecipe) => {
   const { addUtilities, e, variants } = coreUtils
+  const buildFromRecipe = ([key, value]) => [key, buildConfig(tailwindConfig, coreUtils, ...value)]
+  const pluginUtilities = Object.entries(pluginRecipe).map(buildFromRecipe)
 
-  return Object.entries(pluginUtilities)
+  return Object.entries(_.fromPairs(pluginUtilities))
     .filter(([modifier, values]) => !_.isEmpty(values))
     .forEach(([modifier, values]) => {
       const base = _.kebabCase(modifier).split('-').slice(0, 2).join('-')
