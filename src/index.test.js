@@ -97,7 +97,7 @@ describe('generatePluginCss()', () => {
   })
 
   test('responsive variants', () => {
-    const testConfig = { variants: {} }
+    const testConfig = { variants: ['responsive'] }
     const pluginOptions = {}
 
     const expectedCss = `
@@ -125,10 +125,54 @@ describe('generatePluginCss()', () => {
     return generatePluginCss(tailwindConfig, testConfig, pluginOptions)
       .then(css => expect(css).toMatchCss(expectedCss))
   })
+
+  test('merges configs correctly', () => {
+    const testConfig = {
+      theme: { screens: { md: '768px' } },
+      variants: ['responsive'],
+    }
+    const pluginOptions = {}
+
+    const expectedCss = `
+      .col-count-2 { column-count: 2 }
+      .col-count-4 { column-count: 4 }
+
+      .col-gap-4 { column-gap: 1rem }
+      .col-gap-8 { column-gap: 2rem }
+
+      .col-span-none { column-span: none }
+      .col-span-all { column-span: all }
+
+      @media (min-width: 640px) {
+        .sm\\:col-count-2 { column-count: 2 }
+        .sm\\:col-count-4 { column-count: 4 }
+
+        .sm\\:col-gap-4 { column-gap: 1rem }
+        .sm\\:col-gap-8 { column-gap: 2rem }
+
+        .sm\\:col-span-none { column-span: none }
+        .sm\\:col-span-all { column-span: all }
+      }
+
+      @media (min-width: 768px) {
+        .md\\:col-count-2 { column-count: 2 }
+        .md\\:col-count-4 { column-count: 4 }
+
+        .md\\:col-gap-4 { column-gap: 1rem }
+        .md\\:col-gap-8 { column-gap: 2rem }
+
+        .md\\:col-span-none { column-span: none }
+        .md\\:col-span-all { column-span: all }
+      }
+    `
+
+    return generatePluginCss(tailwindConfig, testConfig, pluginOptions)
+      .then(css => expect(css).toMatchCss(expectedCss))
+  })
 })
 
 // TODO: Use tailwind.config.js to hold the plugin's default values
-describe('given a pluginUtilities object', () => {
+describe('buildPlugin()', () => {
   test.todo('generates default utilities and responsive variants')
   test.todo('variants can be customized')
   test.todo('utilities can be customized')

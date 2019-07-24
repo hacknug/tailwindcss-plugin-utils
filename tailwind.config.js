@@ -11,7 +11,7 @@ module.exports = {
 
     columnSpan: ['none', 'all'],
     columnCount: [2, 4], // Forces building object from array
-    columnGap: {}, // Forces using `gap` as fallback
+    // columnGap: {}, // Forces using `gap` as fallback
 
     gap: {
       4: '1rem',

@@ -98,11 +98,7 @@ export const generatePluginCss = (tailwindConfig = {}, testConfig = {}, pluginOp
     variants: [],
   }
   const postcssPlugins = [
-    tailwindcss({
-      ...tailwindConfig,
-      ...sandboxConfig,
-      ...testConfig,
-    }),
+    tailwindcss(_.merge({}, tailwindConfig, sandboxConfig, testConfig)),
   ]
 
   return postcss(postcssPlugins)
