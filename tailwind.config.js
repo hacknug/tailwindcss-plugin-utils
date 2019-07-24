@@ -3,9 +3,6 @@ const pluginOptions = {}
 
 module.exports = {
   theme: {
-    extend: {},
-    screens: { sm: '640px' },
-
     textColor: {}, // Forces using `bgColor` as fallback
     backgroundColor: { tailwind: '#38b2ac' },
 

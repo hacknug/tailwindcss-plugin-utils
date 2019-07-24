@@ -95,6 +95,7 @@ export const buildPlugin = (tailwindConfig, coreUtils, pluginRecipe) => {
 
 export const generatePluginCss = (tailwindConfig = {}, testConfig = {}, pluginOptions = {}) => {
   const sandboxConfig = {
+    theme: { screens: { sm: '640px' } },
     corePlugins: false,
     variants: [],
   }
