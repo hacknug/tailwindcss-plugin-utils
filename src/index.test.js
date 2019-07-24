@@ -99,7 +99,6 @@ describe('generatePluginCss()', () => {
     return generatePluginCss(tailwindConfig, testConfig, pluginOptions)
       .then(css => expect(css).toMatchCss(expectedCss))
   })
-
   test('responsive variants', () => {
     const testConfig = { variants: ['responsive'] }
     const pluginOptions = {}
@@ -129,8 +128,7 @@ describe('generatePluginCss()', () => {
     return generatePluginCss(tailwindConfig, testConfig, pluginOptions)
       .then(css => expect(css).toMatchCss(expectedCss))
   })
-
-  test('merges configs correctly', () => {
+  test('handles merging configs correctly', () => {
     const testConfig = {
       theme: { screens: { md: '768px' } },
       variants: ['responsive'],
@@ -167,6 +165,41 @@ describe('generatePluginCss()', () => {
 
         .md\\:col-span-none { column-span: none }
         .md\\:col-span-all { column-span: all }
+      }
+    `
+
+    return generatePluginCss(tailwindConfig, testConfig, pluginOptions)
+      .then(css => expect(css).toMatchCss(expectedCss))
+  })
+  test('handles merging mixed `variants`', () => {
+    const testConfig = {
+      variants: {
+        columnCount: ['focus'],
+        columnGap: ['hover'],
+        columnSpan: ['responsive'],
+      },
+    }
+    const pluginOptions = {}
+
+    const expectedCss = `
+      .col-count-2 { column-count: 2 }
+      .col-count-4 { column-count: 4 }
+
+      .focus\\:col-count-2:focus { column-count: 2 }
+      .focus\\:col-count-4:focus { column-count: 4 }
+
+      .col-gap-4 { column-gap: 1rem }
+      .col-gap-8 { column-gap: 2rem }
+
+      .hover\\:col-gap-4:hover { column-gap: 1rem }
+      .hover\\:col-gap-8:hover { column-gap: 2rem }
+
+      .col-span-none { column-span: none }
+      .col-span-all { column-span: all }
+
+      @media (min-width: 640px) {
+        .sm\\:col-span-none { column-span: none }
+        .sm\\:col-span-all { column-span: all }
       }
     `
 

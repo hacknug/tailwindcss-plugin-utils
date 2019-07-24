@@ -94,13 +94,21 @@ export const buildPlugin = (tailwindConfig, coreUtils, pluginRecipe) => {
  */
 
 export const generatePluginCss = (tailwindConfig = {}, testConfig = {}, pluginOptions = {}) => {
+  const customizer = (objValue, srcValue, key) => {
+    if (key === 'variants' && _.isArray(objValue) && _.isEmpty(objValue)) {
+      return srcValue
+    }
+  }
+
   const sandboxConfig = {
     theme: { screens: { sm: '640px' } },
     corePlugins: false,
     variants: [],
   }
+
+  const configs = [tailwindConfig, sandboxConfig, testConfig]
   const postcssPlugins = [
-    tailwindcss(_.merge({}, tailwindConfig, sandboxConfig, testConfig)),
+    tailwindcss(_.mergeWith({}, ...configs, customizer)),
   ]
 
   return postcss(postcssPlugins)
