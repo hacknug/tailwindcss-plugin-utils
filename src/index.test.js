@@ -66,6 +66,10 @@ describe('buildConfig()', () => {
     expect(buildConfig(tailwindConfig, coreUtils, 'columnCount'))
       .toStrictEqual({ 2: { columnCount: 2 }, 4: { columnCount: 4 } })
   })
+  test('from theme() undefined', () => {
+    expect(buildConfig(tailwindConfig, coreUtils, 'backgroundImage'))
+      .toStrictEqual({})
+  })
   test('from defaultConfig object', () => {
     expect(buildConfig(tailwindConfig, coreUtils, 'columnSpan'))
       .toStrictEqual({ all: { columnSpan: 'all' }, none: { columnSpan: 'none' } })

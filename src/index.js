@@ -52,7 +52,8 @@ export const getSettings = (theme, themeKey, fallbackKeys = []) => {
 
   return (
     (!_.isEmpty(value) && value) ||
-    (fallbackKeys.length && getSettings(theme, newThemeKey, newFallbackKeys))
+    (fallbackKeys.length && getSettings(theme, newThemeKey, newFallbackKeys)) ||
+    ({})
   )
 }
 
