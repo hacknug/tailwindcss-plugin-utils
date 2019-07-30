@@ -25,9 +25,9 @@
   "scripts": {
     "prebuild": "rimraf lib",
     "build": "babel src --out-dir lib --ignore 'src/**/*.test.js'",
+    "dev": "jest --watchAll",
     "prepublish": "npm run build",
     "release": "release-it",
-    "dev": "jest --watchAll",
     "test": "jest"
   },
   "dependencies": {
@@ -52,5 +52,8 @@
     "jest-matcher-css": "^1.1.0",
     "release-it": "^12.3.3",
     "rimraf": "^2.6.3"
+  },
+  "engines": {
+    "node": ">=8.9.0"
   }
 }
