@@ -83,8 +83,6 @@ describe('buildConfig()', () => {
 describe('generatePluginCss()', () => {
   test('default utilities', () => {
     const testConfig = {}
-    const pluginOptions = {}
-
     const expectedCss = `
       .col-count-2 { column-count: 2 }
       .col-count-4 { column-count: 4 }
@@ -96,13 +94,11 @@ describe('generatePluginCss()', () => {
       .col-span-all { column-span: all }
     `
 
-    return generatePluginCss(tailwindConfig, testConfig, pluginOptions)
+    return generatePluginCss(tailwindConfig, testConfig)
       .then(css => expect(css).toMatchCss(expectedCss))
   })
   test('responsive variants', () => {
     const testConfig = { variants: ['responsive'] }
-    const pluginOptions = {}
-
     const expectedCss = `
       .col-count-2 { column-count: 2 }
       .col-count-4 { column-count: 4 }
@@ -125,7 +121,7 @@ describe('generatePluginCss()', () => {
       }
     `
 
-    return generatePluginCss(tailwindConfig, testConfig, pluginOptions)
+    return generatePluginCss(tailwindConfig, testConfig)
       .then(css => expect(css).toMatchCss(expectedCss))
   })
   test('handles merging configs correctly', () => {
@@ -133,8 +129,6 @@ describe('generatePluginCss()', () => {
       theme: { screens: { md: '768px' } },
       variants: ['responsive'],
     }
-    const pluginOptions = {}
-
     const expectedCss = `
       .col-count-2 { column-count: 2 }
       .col-count-4 { column-count: 4 }
@@ -168,7 +162,7 @@ describe('generatePluginCss()', () => {
       }
     `
 
-    return generatePluginCss(tailwindConfig, testConfig, pluginOptions)
+    return generatePluginCss(tailwindConfig, testConfig)
       .then(css => expect(css).toMatchCss(expectedCss))
   })
   test('handles merging mixed `variants`', () => {
@@ -179,8 +173,6 @@ describe('generatePluginCss()', () => {
         columnSpan: ['responsive'],
       },
     }
-    const pluginOptions = {}
-
     const expectedCss = `
       .col-count-2 { column-count: 2 }
       .col-count-4 { column-count: 4 }
@@ -203,7 +195,7 @@ describe('generatePluginCss()', () => {
       }
     `
 
-    return generatePluginCss(tailwindConfig, testConfig, pluginOptions)
+    return generatePluginCss(tailwindConfig, testConfig)
       .then(css => expect(css).toMatchCss(expectedCss))
   })
 })

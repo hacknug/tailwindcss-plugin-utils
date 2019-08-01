@@ -90,10 +90,10 @@ export const buildPlugin = (tailwindConfig, coreUtils, pluginRecipe) => {
  * generatePluginCss()
  * @param {*} tailwindConfig
  * @param {*} testConfig
- * @param {*} pluginOptions
  */
 
-export const generatePluginCss = (tailwindConfig = {}, testConfig = {}, pluginOptions = {}) => {
+// TODO: Allow users to configure what is it that the helper generates aka `@tailwind utilities`
+export const generatePluginCss = (tailwindConfig = {}, testConfig = {}) => {
   const customizer = (objValue, srcValue, key) => {
     if (key === 'variants' && _.isArray(objValue) && _.isEmpty(objValue)) {
       return srcValue
