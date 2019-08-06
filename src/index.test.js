@@ -76,7 +76,7 @@ describe('buildConfig()', () => {
   })
   test('from defaultConfig object using fallbacks', () => {
     expect(buildConfig(tailwindConfig, coreUtils, 'gap', 'columnGap'))
-      .toStrictEqual({ 4: { gap: '1rem' }, 8: { gap: '2rem' } })
+      .toStrictEqual({ 4: { gap: '1rem' }, 8: { gap: '2rem' }, '1/2': { gap: '50%' } })
   })
 })
 
@@ -89,6 +89,7 @@ describe('generatePluginCss()', () => {
 
       .col-gap-4 { column-gap: 1rem }
       .col-gap-8 { column-gap: 2rem }
+      .col-gap-1\\/2 { column-gap: 50% }
 
       .col-span-none { column-span: none }
       .col-span-all { column-span: all }
@@ -105,6 +106,7 @@ describe('generatePluginCss()', () => {
 
       .col-gap-4 { column-gap: 1rem }
       .col-gap-8 { column-gap: 2rem }
+      .col-gap-1\\/2 { column-gap: 50% }
 
       .col-span-none { column-span: none }
       .col-span-all { column-span: all }
@@ -115,6 +117,7 @@ describe('generatePluginCss()', () => {
 
         .sm\\:col-gap-4 { column-gap: 1rem }
         .sm\\:col-gap-8 { column-gap: 2rem }
+        .sm\\:col-gap-1\\/2 { column-gap: 50% }
 
         .sm\\:col-span-none { column-span: none }
         .sm\\:col-span-all { column-span: all }
@@ -135,6 +138,7 @@ describe('generatePluginCss()', () => {
 
       .col-gap-4 { column-gap: 1rem }
       .col-gap-8 { column-gap: 2rem }
+      .col-gap-1\\/2 { column-gap: 50% }
 
       .col-span-none { column-span: none }
       .col-span-all { column-span: all }
@@ -145,6 +149,7 @@ describe('generatePluginCss()', () => {
 
         .sm\\:col-gap-4 { column-gap: 1rem }
         .sm\\:col-gap-8 { column-gap: 2rem }
+        .sm\\:col-gap-1\\/2 { column-gap: 50% }
 
         .sm\\:col-span-none { column-span: none }
         .sm\\:col-span-all { column-span: all }
@@ -156,6 +161,7 @@ describe('generatePluginCss()', () => {
 
         .md\\:col-gap-4 { column-gap: 1rem }
         .md\\:col-gap-8 { column-gap: 2rem }
+        .md\\:col-gap-1\\/2 { column-gap: 50% }
 
         .md\\:col-span-none { column-span: none }
         .md\\:col-span-all { column-span: all }
@@ -182,9 +188,11 @@ describe('generatePluginCss()', () => {
 
       .col-gap-4 { column-gap: 1rem }
       .col-gap-8 { column-gap: 2rem }
+      .col-gap-1\\/2 { column-gap: 50% }
 
       .hover\\:col-gap-4:hover { column-gap: 1rem }
       .hover\\:col-gap-8:hover { column-gap: 2rem }
+      .hover\\:col-gap-1\\/2:hover { column-gap: 50% }
 
       .col-span-none { column-span: none }
       .col-span-all { column-span: all }
@@ -202,11 +210,11 @@ describe('generatePluginCss()', () => {
 
 // TODO: Use tailwind.config.js to hold the plugin's default values
 describe('buildPlugin()', () => {
-  test.todo('generates default utilities and responsive variants')
-  test.todo('variants can be customized')
-  test.todo('utilities can be customized')
-  test.todo('modifier can contain fractions')
-  test.todo('uses defaultValues as fallback')
+  // test.todo('generates default utilities and responsive variants')
+  // test.todo('variants can be customized')
+  // test.todo('utilities can be customized')
+  // test.todo('modifier can contain fractions')
+  // test.todo('uses defaultValues as fallback')
   test.todo('respects tailwind\'s important config option')
   test.todo('generates negative utilities') // Probably redundant now that handleName() is tested
   test.todo('generates mixed utilities correctly') // Probably redundant now that handleName() is tested

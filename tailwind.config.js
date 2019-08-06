@@ -13,6 +13,7 @@ module.exports = {
     gap: {
       4: '1rem',
       8: '2rem',
+      '1/2': '50%',
     },
   },
 
