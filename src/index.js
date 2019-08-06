@@ -11,8 +11,8 @@ export const FLATTEN_CONFIG = { delimiter: '-', maxDepth: 2 }
 
 /**
  * handleName()
- * @param {*} className
- * @param {*} base
+ * @param {string} className
+ * @param {string} base
  */
 
 export const handleName = (className, base) => {
@@ -46,6 +46,13 @@ export const buildConfig = (tailwindConfig, coreUtils, themeKey, ...fallbackKeys
   return settings ? _.fromPairs(entries) : false
 }
 
+/**
+ * getSettings()
+ * @param {function|Object} theme
+ * @param {string} themeKey
+ * @param {string[]} fallbackKeys
+ */
+
 export const getSettings = (theme, themeKey, fallbackKeys = []) => {
   const [newThemeKey, ...newFallbackKeys] = fallbackKeys
   const value = typeof theme === 'function' ? theme(themeKey, false) : theme[themeKey]
@@ -71,27 +78,26 @@ export const buildPlugin = (tailwindConfig, coreUtils, pluginRecipe) => {
   return Object.entries(_.fromPairs(pluginUtilities))
     .filter(([modifier, values]) => !_.isEmpty(values))
     .forEach(([modifier, values]) => {
+      const escapeClassName = ([className, value]) => [`.${e(`${className}`)}`, value]
+
       const base = _.kebabCase(modifier).split('-').slice(0, 2).join('-')
       const variantName = Object.keys(Object.entries(values)[0][1])[0]
 
-      // TODO: Fix escaping things separately.
-      // Numbers dont't need escaping if they're not the first character.
-      const escapedValues = _.fromPairs(Object.entries(values).map(([modifier, value]) => [e(modifier), value]))
-      const utilities = flatten({ [`.${e(`${base}`)}`]: escapedValues }, FLATTEN_CONFIG)
+      const utilities = flatten({ [base]: values }, FLATTEN_CONFIG)
+      const escapedUtilities = _.fromPairs(Object.entries(utilities).map(escapeClassName))
+      const handledUtilities = _.mapKeys(escapedUtilities, (value, key) => handleName(key, base))
 
-      addUtilities(
-        _.mapKeys(utilities, (value, key) => handleName(key, base)),
-        variants(variantName, ['responsive'])
-      )
+      addUtilities(handledUtilities, variants(variantName, ['responsive']))
     })
 }
 
 /**
  * generatePluginCss()
- * @param {*} tailwindConfig
- * @param {*} testConfig
+ * @param {Object} tailwindConfig
+ * @param {Object} testConfig
  */
 
+// TODO: Allow users to specify which version of Tailwind to use?
 // TODO: Allow users to configure what is it that the helper generates aka `@tailwind utilities`
 export const generatePluginCss = (tailwindConfig = {}, testConfig = {}) => {
   const customizer = (objValue, srcValue, key) => {
