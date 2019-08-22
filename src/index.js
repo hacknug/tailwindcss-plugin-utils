@@ -11,6 +11,7 @@ export const FLATTEN_CONFIG = { delimiter: '-', maxDepth: 2 }
 
 /**
  * handleName()
+ *
  * @param {string} className
  * @param {string} base
  */
@@ -28,10 +29,11 @@ export const prefixNegativeModifiers = (base, modifier) => {
 
 /**
  * buildConfig()
- * @param {*} defaultValues
- * @param {*} coreUtils
- * @param {*} themeKey
- * @param {...any} fallbackKeys
+ *
+ * @param {Object} tailwindConfig
+ * @param {Object} coreUtils
+ * @param {string} themeKey
+ * @param {...string} fallbackKeys
  */
 
 export const buildConfig = (tailwindConfig, coreUtils, themeKey, ...fallbackKeys) => {
@@ -48,6 +50,7 @@ export const buildConfig = (tailwindConfig, coreUtils, themeKey, ...fallbackKeys
 
 /**
  * getSettings()
+ *
  * @param {function|Object} theme
  * @param {string} themeKey
  * @param {string[]} fallbackKeys
@@ -66,10 +69,11 @@ export const getSettings = (theme, themeKey, fallbackKeys = []) => {
 
 /**
  * buildPlugin()
- * @param {*} pluginUtilities
- * @param {*} coreUtils
+ *
+ * @param {Object} tailwindConfig
+ * @param {Object} coreUtils
+ * @param {Object} pluginRecipe
  */
-
 export const buildPlugin = (tailwindConfig, coreUtils, pluginRecipe) => {
   const { addUtilities, e, variants } = coreUtils
   const buildFromRecipe = ([key, value]) => [key, buildConfig(tailwindConfig, coreUtils, ...value)]
@@ -93,6 +97,7 @@ export const buildPlugin = (tailwindConfig, coreUtils, pluginRecipe) => {
 
 /**
  * generatePluginCss()
+ *
  * @param {Object} tailwindConfig
  * @param {Object} testConfig
  */
