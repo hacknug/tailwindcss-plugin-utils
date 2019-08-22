@@ -82,16 +82,13 @@ export const buildPlugin = (tailwindConfig, coreUtils, pluginRecipe) => {
   return Object.entries(_.fromPairs(pluginUtilities))
     .filter(([modifier, values]) => !_.isEmpty(values))
     .forEach(([modifier, values]) => {
-      const escapeClassName = ([className, value]) => [`.${e(`${className}`)}`, value]
-
       const base = _.kebabCase(modifier).split('-').slice(0, 2).join('-')
       const variantName = Object.keys(Object.entries(values)[0][1])[0]
+      const flatValues = Object.entries(flatten({ [base]: values }, FLATTEN_CONFIG))
+        .map(([className, value]) => [`.${e(`${className}`)}`, value])
+      const utilities = _(flatValues).fromPairs().mapKeys((value, key) => handleName(key, base)).value()
 
-      const utilities = flatten({ [base]: values }, FLATTEN_CONFIG)
-      const escapedUtilities = _.fromPairs(Object.entries(utilities).map(escapeClassName))
-      const handledUtilities = _.mapKeys(escapedUtilities, (value, key) => handleName(key, base))
-
-      addUtilities(handledUtilities, variants(variantName, ['responsive']))
+      return addUtilities(utilities, variants(variantName, ['responsive']))
     })
 }
 
