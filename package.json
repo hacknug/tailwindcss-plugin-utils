@@ -26,7 +26,7 @@
     "prebuild": "rimraf lib",
     "build": "babel src --out-dir lib --ignore 'src/**/*.test.js'",
     "dev": "jest --watchAll",
-    "prepublish": "npm run build",
+    "prepublishOnly": "npm run build",
     "release": "release-it",
     "test": "jest"
   },
