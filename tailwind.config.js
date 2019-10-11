@@ -6,6 +6,9 @@ module.exports = {
     textColor: {}, // Forces using `bgColor` as fallback
     backgroundColor: { tailwind: '#38b2ac' },
 
+    borderColor: { red: 'red' },
+    borderWidth: { 2: '2px' },
+
     columnSpan: ['none', 'all'],
     columnCount: [2, 4], // Forces building object from array
     // columnGap: {}, // Forces using `gap` as fallback

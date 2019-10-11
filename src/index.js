@@ -36,7 +36,7 @@ export const prefixNegativeModifiers = (base, modifier) => {
  * @param {...string} fallbackKeys
  */
 
-export const buildConfig = (tailwindConfig, coreUtils, themeKey, ...fallbackKeys) => {
+export const buildConfig = (coreUtils, tailwindConfig, themeKey, ...fallbackKeys) => {
   const buildFromEntries = ([modifier, value]) => [modifier, { [themeKey]: value }]
   const themeSettings = getSettings(coreUtils.theme, themeKey, fallbackKeys)
 
@@ -74,22 +74,25 @@ export const getSettings = (theme, themeKey, fallbackKeys = []) => {
  * @param {Object} coreUtils
  * @param {Object} pluginRecipe
  */
-export const buildPlugin = (tailwindConfig, coreUtils, pluginRecipe) => {
+
+export const buildPlugin = (coreUtils, tailwindConfig, pluginRecipe) => {
   const { addUtilities, e, variants } = coreUtils
-  const buildFromRecipe = ([key, value]) => [key, buildConfig(tailwindConfig, coreUtils, ...value)]
-  const pluginUtilities = Object.entries(pluginRecipe).map(buildFromRecipe)
+  const recipes = Array.isArray(pluginRecipe) ? pluginRecipe : [pluginRecipe]
 
-  return Object.entries(_.fromPairs(pluginUtilities))
-    .filter(([modifier, values]) => !_.isEmpty(values))
-    .forEach(([modifier, values]) => {
-      const base = _.kebabCase(modifier).split('-').slice(0, 2).join('-')
-      const variantName = Object.keys(Object.entries(values)[0][1])[0]
-      const flatValues = Object.entries(flatten({ [base]: values }, FLATTEN_CONFIG))
-        .map(([className, value]) => [`.${e(`${className}`)}`, value])
-      const utilities = _(flatValues).fromPairs().mapKeys((value, key) => handleName(key, base)).value()
+  return recipes.forEach((recipe) => {
+    const buildFromRecipe = ([key, value]) => [key, buildConfig(coreUtils, tailwindConfig, ...value)]
+    return Object.entries(_.fromPairs(Object.entries(recipe).map(buildFromRecipe)))
+      .filter(([modifier, values]) => !_.isEmpty(values))
+      .forEach(([modifier, values]) => {
+        const base = _.kebabCase(modifier).split('-').slice(0, 2).join('-')
+        const variantName = Object.keys(Object.entries(values)[0][1])[0]
+        const flatValues = Object.entries(flatten({ [base]: values }, FLATTEN_CONFIG))
+          .map(([className, value]) => [`.${e(`${className}`)}`, value])
+        const utilities = _(flatValues).fromPairs().mapKeys((value, key) => handleName(key, base)).value()
 
-      return addUtilities(utilities, variants(variantName, ['responsive']))
-    })
+        return addUtilities(utilities, variants(variantName, ['responsive']))
+      })
+  })
 }
 
 /**
@@ -99,9 +102,9 @@ export const buildPlugin = (tailwindConfig, coreUtils, pluginRecipe) => {
  * @param {Object} testConfig
  */
 
-// TODO: Allow users to specify which version of Tailwind to use?
-// TODO: Allow users to configure what is it that the helper generates aka `@tailwind utilities`
 export const generatePluginCss = (tailwindConfig = {}, testConfig = {}) => {
+  // TODO: Allow users to specify which version of Tailwind to use?
+  // TODO: Allow users to configure what is it that the helper generates aka `@tailwind utilities`
   const customizer = (objValue, srcValue, key) => {
     if (key === 'variants' && _.isArray(objValue) && _.isEmpty(objValue)) {
       return srcValue

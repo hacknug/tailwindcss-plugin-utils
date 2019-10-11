@@ -93,6 +93,9 @@ describe('generatePluginCss()', () => {
 
       .col-span-none { column-span: none }
       .col-span-all { column-span: all }
+
+      .text-stroke-red { text-stroke-color: red }
+      .text-stroke-2 { text-stroke-width: 2px }
     `
 
     return generatePluginCss(tailwindConfig, testConfig)
@@ -111,6 +114,9 @@ describe('generatePluginCss()', () => {
       .col-span-none { column-span: none }
       .col-span-all { column-span: all }
 
+      .text-stroke-red { text-stroke-color: red }
+      .text-stroke-2 { text-stroke-width: 2px }
+
       @media (min-width: 640px) {
         .sm\\:col-count-2 { column-count: 2 }
         .sm\\:col-count-4 { column-count: 4 }
@@ -121,6 +127,9 @@ describe('generatePluginCss()', () => {
 
         .sm\\:col-span-none { column-span: none }
         .sm\\:col-span-all { column-span: all }
+
+        .sm\\:text-stroke-red { text-stroke-color: red }
+        .sm\\:text-stroke-2 { text-stroke-width: 2px }
       }
     `
 
@@ -143,6 +152,9 @@ describe('generatePluginCss()', () => {
       .col-span-none { column-span: none }
       .col-span-all { column-span: all }
 
+      .text-stroke-red { text-stroke-color: red }
+      .text-stroke-2 { text-stroke-width: 2px }
+
       @media (min-width: 640px) {
         .sm\\:col-count-2 { column-count: 2 }
         .sm\\:col-count-4 { column-count: 4 }
@@ -153,6 +165,9 @@ describe('generatePluginCss()', () => {
 
         .sm\\:col-span-none { column-span: none }
         .sm\\:col-span-all { column-span: all }
+
+        .sm\\:text-stroke-red { text-stroke-color: red }
+        .sm\\:text-stroke-2 { text-stroke-width: 2px }
       }
 
       @media (min-width: 768px) {
@@ -165,6 +180,9 @@ describe('generatePluginCss()', () => {
 
         .md\\:col-span-none { column-span: none }
         .md\\:col-span-all { column-span: all }
+
+        .md\\:text-stroke-red { text-stroke-color: red }
+        .md\\:text-stroke-2 { text-stroke-width: 2px }
       }
     `
 
@@ -197,10 +215,36 @@ describe('generatePluginCss()', () => {
       .col-span-none { column-span: none }
       .col-span-all { column-span: all }
 
+      .text-stroke-red { text-stroke-color: red }
+      .text-stroke-2 { text-stroke-width: 2px }
+
       @media (min-width: 640px) {
         .sm\\:col-span-none { column-span: none }
         .sm\\:col-span-all { column-span: all }
+
+        .sm\\:text-stroke-red { text-stroke-color: red }
+        .sm\\:text-stroke-2 { text-stroke-width: 2px }
       }
+    `
+
+    return generatePluginCss(tailwindConfig, testConfig)
+      .then(css => expect(css).toMatchCss(expectedCss))
+  })
+  test('handles nested recipes', () => {
+    const testConfig = {}
+    const expectedCss = `
+      .col-count-2 { column-count: 2 }
+      .col-count-4 { column-count: 4 }
+
+      .col-gap-4 { column-gap: 1rem }
+      .col-gap-8 { column-gap: 2rem }
+      .col-gap-1\\/2 { column-gap: 50% }
+
+      .col-span-none { column-span: none }
+      .col-span-all { column-span: all }
+
+      .text-stroke-red { text-stroke-color: red }
+      .text-stroke-2 { text-stroke-width: 2px }
     `
 
     return generatePluginCss(tailwindConfig, testConfig)
