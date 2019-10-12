@@ -32,25 +32,25 @@
   },
   "dependencies": {
     "flat": "^4.1.0",
-    "lodash": "4.17.15",
-    "postcss": "^7.0.17",
-    "tailwindcss": "^1.0.5"
+    "lodash": "^4.17.15",
+    "postcss": "^7.0.18",
+    "tailwindcss": "^1.1.2"
   },
   "devDependencies": {
-    "@babel/cli": "7.6.4",
-    "@babel/core": "7.6.4",
-    "@babel/preset-env": "7.6.3",
-    "babel-jest": "^24.8.0",
-    "eslint": "6.5.1",
-    "eslint-config-standard": "^14.0.0",
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
+    "babel-jest": "^24.9.0",
+    "eslint": "^6.5.1",
+    "eslint-config-standard": "^14.1.0",
     "eslint-import-resolver-node": "^0.3.2",
-    "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "jest": "^24.8.0",
+    "eslint-plugin-standard": "^4.0.1",
+    "jest": "^24.9.0",
     "jest-matcher-css": "^1.1.0",
-    "release-it": "^12.3.3",
+    "release-it": "^12.4.3",
     "rimraf": "^3.0.0"
   },
   "engines": {
