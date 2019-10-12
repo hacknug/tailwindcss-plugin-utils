@@ -77,10 +77,12 @@ export const getSettings = (theme, themeKey, fallbackKeys = []) => {
 
 export const buildPlugin = (coreUtils, tailwindConfig, pluginRecipe) => {
   const { addUtilities, e, variants } = coreUtils
+  // TODO: Support specifying a property à la `tailwindcss-alpha` and `tailwindcss-custom-native`
   const recipes = Array.isArray(pluginRecipe) ? pluginRecipe : [pluginRecipe]
 
   return recipes.forEach((recipe) => {
     const buildFromRecipe = ([key, value]) => [key, buildConfig(coreUtils, tailwindConfig, ...value)]
+
     return Object.entries(_.fromPairs(Object.entries(recipe).map(buildFromRecipe)))
       .filter(([modifier, values]) => !_.isEmpty(values))
       .forEach(([modifier, values]) => {
