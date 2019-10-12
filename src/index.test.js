@@ -1,7 +1,7 @@
 import {
   FLATTEN_CONFIG,
   handleName,
-  buildConfig,
+  buildConfigFromRecipe,
   generatePluginCss,
 } from './index'
 
@@ -53,29 +53,29 @@ describe('handleName()', () => {
   })
 })
 
-describe('buildConfig()', () => {
+describe('buildConfigFromRecipe()', () => {
   test('from theme() object', () => {
-    expect(buildConfig(tailwindConfig, coreUtils, 'backgroundColor'))
+    expect(buildConfigFromRecipe(coreUtils, { config: tailwindConfig, key: ['backgroundColor'] }))
       .toStrictEqual({ tailwind: { backgroundColor: '#38b2ac' } })
   })
   test('from theme() object using fallbacks', () => {
-    expect(buildConfig(tailwindConfig, coreUtils, 'textColor', 'backgroundColor'))
+    expect(buildConfigFromRecipe(coreUtils, { config: tailwindConfig, key: ['textColor', 'backgroundColor'] }))
       .toStrictEqual({ tailwind: { textColor: '#38b2ac' } })
   })
   test('from theme() array', () => {
-    expect(buildConfig(tailwindConfig, coreUtils, 'columnCount'))
+    expect(buildConfigFromRecipe(coreUtils, { config: tailwindConfig, key: ['columnCount'] }))
       .toStrictEqual({ 2: { columnCount: 2 }, 4: { columnCount: 4 } })
   })
   test('from theme() undefined', () => {
-    expect(buildConfig(tailwindConfig, coreUtils, 'backgroundImage'))
+    expect(buildConfigFromRecipe(coreUtils, { config: tailwindConfig, key: ['backgroundImage'] }))
       .toStrictEqual({})
   })
   test('from defaultConfig object', () => {
-    expect(buildConfig(tailwindConfig, coreUtils, 'columnSpan'))
+    expect(buildConfigFromRecipe(coreUtils, { config: tailwindConfig, key: ['columnSpan'] }))
       .toStrictEqual({ all: { columnSpan: 'all' }, none: { columnSpan: 'none' } })
   })
   test('from defaultConfig object using fallbacks', () => {
-    expect(buildConfig(tailwindConfig, coreUtils, 'gap', 'columnGap'))
+    expect(buildConfigFromRecipe(coreUtils, { config: tailwindConfig, key: ['gap', 'columnGap'] }))
       .toStrictEqual({ 4: { gap: '1rem' }, 8: { gap: '2rem' }, '1/2': { gap: '50%' } })
   })
 })
@@ -94,8 +94,8 @@ describe('generatePluginCss()', () => {
       .col-span-none { column-span: none }
       .col-span-all { column-span: all }
 
-      .text-stroke-red { text-stroke-color: red }
-      .text-stroke-2 { text-stroke-width: 2px }
+      .text-stroke-red { -webkit-text-stroke-color: red }
+      .text-stroke-2 { -webkit-text-stroke-width: 2px }
     `
 
     return generatePluginCss(tailwindConfig, testConfig)
@@ -114,8 +114,8 @@ describe('generatePluginCss()', () => {
       .col-span-none { column-span: none }
       .col-span-all { column-span: all }
 
-      .text-stroke-red { text-stroke-color: red }
-      .text-stroke-2 { text-stroke-width: 2px }
+      .text-stroke-red { -webkit-text-stroke-color: red }
+      .text-stroke-2 { -webkit-text-stroke-width: 2px }
 
       @media (min-width: 640px) {
         .sm\\:col-count-2 { column-count: 2 }
@@ -128,8 +128,8 @@ describe('generatePluginCss()', () => {
         .sm\\:col-span-none { column-span: none }
         .sm\\:col-span-all { column-span: all }
 
-        .sm\\:text-stroke-red { text-stroke-color: red }
-        .sm\\:text-stroke-2 { text-stroke-width: 2px }
+        .sm\\:text-stroke-red { -webkit-text-stroke-color: red }
+        .sm\\:text-stroke-2 { -webkit-text-stroke-width: 2px }
       }
     `
 
@@ -152,8 +152,8 @@ describe('generatePluginCss()', () => {
       .col-span-none { column-span: none }
       .col-span-all { column-span: all }
 
-      .text-stroke-red { text-stroke-color: red }
-      .text-stroke-2 { text-stroke-width: 2px }
+      .text-stroke-red { -webkit-text-stroke-color: red }
+      .text-stroke-2 { -webkit-text-stroke-width: 2px }
 
       @media (min-width: 640px) {
         .sm\\:col-count-2 { column-count: 2 }
@@ -166,8 +166,8 @@ describe('generatePluginCss()', () => {
         .sm\\:col-span-none { column-span: none }
         .sm\\:col-span-all { column-span: all }
 
-        .sm\\:text-stroke-red { text-stroke-color: red }
-        .sm\\:text-stroke-2 { text-stroke-width: 2px }
+        .sm\\:text-stroke-red { -webkit-text-stroke-color: red }
+        .sm\\:text-stroke-2 { -webkit-text-stroke-width: 2px }
       }
 
       @media (min-width: 768px) {
@@ -181,8 +181,8 @@ describe('generatePluginCss()', () => {
         .md\\:col-span-none { column-span: none }
         .md\\:col-span-all { column-span: all }
 
-        .md\\:text-stroke-red { text-stroke-color: red }
-        .md\\:text-stroke-2 { text-stroke-width: 2px }
+        .md\\:text-stroke-red { -webkit-text-stroke-color: red }
+        .md\\:text-stroke-2 { -webkit-text-stroke-width: 2px }
       }
     `
 
@@ -215,15 +215,15 @@ describe('generatePluginCss()', () => {
       .col-span-none { column-span: none }
       .col-span-all { column-span: all }
 
-      .text-stroke-red { text-stroke-color: red }
-      .text-stroke-2 { text-stroke-width: 2px }
+      .text-stroke-red { -webkit-text-stroke-color: red }
+      .text-stroke-2 { -webkit-text-stroke-width: 2px }
 
       @media (min-width: 640px) {
         .sm\\:col-span-none { column-span: none }
         .sm\\:col-span-all { column-span: all }
 
-        .sm\\:text-stroke-red { text-stroke-color: red }
-        .sm\\:text-stroke-2 { text-stroke-width: 2px }
+        .sm\\:text-stroke-red { -webkit-text-stroke-color: red }
+        .sm\\:text-stroke-2 { -webkit-text-stroke-width: 2px }
       }
     `
 
@@ -243,8 +243,8 @@ describe('generatePluginCss()', () => {
       .col-span-none { column-span: none }
       .col-span-all { column-span: all }
 
-      .text-stroke-red { text-stroke-color: red }
-      .text-stroke-2 { text-stroke-width: 2px }
+      .text-stroke-red { -webkit-text-stroke-color: red }
+      .text-stroke-2 { -webkit-text-stroke-width: 2px }
     `
 
     return generatePluginCss(tailwindConfig, testConfig)

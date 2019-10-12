@@ -36,11 +36,12 @@ export const prefixNegativeModifiers = (base, modifier) => {
  * @param {...string} fallbackKeys
  */
 
-export const buildConfig = (coreUtils, tailwindConfig, themeKey, ...fallbackKeys) => {
-  const buildFromEntries = ([modifier, value]) => [modifier, { [themeKey]: value }]
+export const buildConfigFromRecipe = (coreUtils, recipe) => {
+  const { key: [themeKey, ...fallbackKeys], property, config } = recipe
+  const buildFromEntries = ([modifier, value]) => [modifier, { [property || themeKey]: value }]
   const themeSettings = getSettings(coreUtils.theme, themeKey, fallbackKeys)
 
-  const settings = themeSettings || getSettings(tailwindConfig.theme, themeKey, fallbackKeys)
+  const settings = themeSettings || getSettings(config.theme, themeKey, fallbackKeys)
   const object = Array.isArray(settings) ? _.zipObject(settings, settings) : settings
   const flatObject = themeSettings ? flatten(object, FLATTEN_CONFIG) : object
   const entries = settings && Object.entries(flatObject).map(buildFromEntries)
@@ -72,29 +73,49 @@ export const getSettings = (theme, themeKey, fallbackKeys = []) => {
  *
  * @param {Object} tailwindConfig
  * @param {Object} coreUtils
- * @param {Object} pluginRecipe
+ * @param {Object} pluginRecipes
  */
+// TODO: Rename to denote it ONLY adds utilities
+export const buildPlugin = (coreUtils, tailwindConfig, pluginRecipes) => {
+  // TODO: Add support for String recipes?
+  const prepareRecipe = (recipe) => {
+    const {
+      // TODO: Add support for String keys?
+      key, // Array
+      base = _.kebabCase(key[0]),
+      property = _.kebabCase(key[0]),
+      // TODO: Support passing default config using new core API
+      config = tailwindConfig,
+      // TODO: Support passing addUtilitiesOptions
+      // options = { respectPrefix: false, respectImportant: false, variants: [] },
+    } = recipe
+    return key ? { key, base, property, config } : recipe
+  }
 
-export const buildPlugin = (coreUtils, tailwindConfig, pluginRecipe) => {
-  const { addUtilities, e, variants } = coreUtils
-  // TODO: Support specifying a property à la `tailwindcss-alpha` and `tailwindcss-custom-native`
-  const recipes = Array.isArray(pluginRecipe) ? pluginRecipe : [pluginRecipe]
+  return (Array.isArray(pluginRecipes) ? pluginRecipes : [pluginRecipes])
+    .map(prepareRecipe)
+    .forEach((recipe) => {
+      const { key, base, property, config } = recipe
+      // TODO: Support specifying a property à la `tailwindcss-alpha` and `tailwindcss-custom-native`
+      const buildFromRecipe = ([index, value]) => [index, buildConfigFromRecipe(coreUtils, recipe)]
 
-  return recipes.forEach((recipe) => {
-    const buildFromRecipe = ([key, value]) => [key, buildConfig(coreUtils, tailwindConfig, ...value)]
+      // TODO: All this mess is probably not required anymore
+      return Object.entries(_.fromPairs(Object.entries({ [base]: key }).map(buildFromRecipe)))
+        .filter(([modifier, values]) => !_.isEmpty(values))
+        .forEach(([modifier, values]) => {
+          const { addUtilities, e, variants } = coreUtils
+          // const base = _.kebabCase(modifier).split('-').slice(0, 2).join('-')
+          // const variantName = Object.keys(Object.entries(values)[0][1])[0]
+          const flatValues = Object.entries(flatten({ [base]: values }, FLATTEN_CONFIG))
+            .map(([className, value]) => [`.${e(`${className}`)}`, value])
+          const utilities = _(flatValues).fromPairs().mapKeys((value, key) => handleName(key, base)).value()
 
-    return Object.entries(_.fromPairs(Object.entries(recipe).map(buildFromRecipe)))
-      .filter(([modifier, values]) => !_.isEmpty(values))
-      .forEach(([modifier, values]) => {
-        const base = _.kebabCase(modifier).split('-').slice(0, 2).join('-')
-        const variantName = Object.keys(Object.entries(values)[0][1])[0]
-        const flatValues = Object.entries(flatten({ [base]: values }, FLATTEN_CONFIG))
-          .map(([className, value]) => [`.${e(`${className}`)}`, value])
-        const utilities = _(flatValues).fromPairs().mapKeys((value, key) => handleName(key, base)).value()
-
-        return addUtilities(utilities, variants(variantName, ['responsive']))
-      })
-  })
+          return addUtilities(utilities, {
+            // TODO: Should it really default to ['responsive]?
+            variants: variants(key[0], ['responsive']),
+          })
+        })
+    })
 }
 
 /**
