@@ -35,6 +35,7 @@ export const prefixNegativeModifiers = (base, modifier) => {
  */
 
 export const buildConfigFromRecipe = (coreUtils, recipe) => {
+  // TODO: Remove recipe.config since core will take care of it
   const { key: [themeKey, ...fallbackKeys], property, config } = recipe
   const buildFromEntries = ([modifier, value]) => [modifier, { [property || themeKey]: value }]
   const themeSettings = getSettings(coreUtils.theme, themeKey, fallbackKeys)
@@ -81,18 +82,16 @@ export const buildPlugin = (coreUtils, pluginRecipes) => {
       key, // Array
       base = _.kebabCase(key[0]),
       property = _.kebabCase(key[0]),
-      // TODO: Support passing default config using new core API
-      config = {},
       // TODO: Support passing addUtilitiesOptions
       // options = { respectPrefix: false, respectImportant: false, variants: [] },
     } = recipe
-    return key ? { key, base, property, config } : recipe
+    return key ? { key, base, property } : recipe
   }
 
   return (Array.isArray(pluginRecipes) ? pluginRecipes : [pluginRecipes])
     .map(prepareRecipe)
     .forEach((recipe) => {
-      const { key, base, property, config } = recipe
+      const { key, base, property } = recipe
       // TODO: Support specifying a property à la `tailwindcss-alpha` and `tailwindcss-custom-native`
       const buildFromRecipe = ([index, value]) => [index, buildConfigFromRecipe(coreUtils, recipe)]
 

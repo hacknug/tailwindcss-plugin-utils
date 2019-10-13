@@ -42,7 +42,7 @@ describe('handleName()', () => {
   })
 })
 
-// TODO:
+// TODO: Stop depending on passing `config` around. Core takes care of it.
 describe('buildConfigFromRecipe()', () => {
   /**
    * MOCKS:
