@@ -30,10 +30,8 @@ export const prefixNegativeModifiers = (base, modifier) => {
 /**
  * buildConfig()
  *
- * @param {Object} tailwindConfig
  * @param {Object} coreUtils
- * @param {string} themeKey
- * @param {...string} fallbackKeys
+ * @param {Object} recipe
  */
 
 export const buildConfigFromRecipe = (coreUtils, recipe) => {
@@ -71,12 +69,11 @@ export const getSettings = (theme, themeKey, fallbackKeys = []) => {
 /**
  * buildPlugin()
  *
- * @param {Object} tailwindConfig
  * @param {Object} coreUtils
  * @param {Object} pluginRecipes
  */
 // TODO: Rename to denote it ONLY adds utilities
-export const buildPlugin = (coreUtils, tailwindConfig, pluginRecipes) => {
+export const buildPlugin = (coreUtils, pluginOptions, pluginRecipes) => {
   // TODO: Add support for String recipes?
   const prepareRecipe = (recipe) => {
     const {
@@ -85,7 +82,7 @@ export const buildPlugin = (coreUtils, tailwindConfig, pluginRecipes) => {
       base = _.kebabCase(key[0]),
       property = _.kebabCase(key[0]),
       // TODO: Support passing default config using new core API
-      config = tailwindConfig,
+      config = {},
       // TODO: Support passing addUtilitiesOptions
       // options = { respectPrefix: false, respectImportant: false, variants: [] },
     } = recipe
@@ -121,11 +118,10 @@ export const buildPlugin = (coreUtils, tailwindConfig, pluginRecipes) => {
 /**
  * generatePluginCss()
  *
- * @param {Object} tailwindConfig
  * @param {Object} testConfig
  */
 
-export const generatePluginCss = (tailwindConfig = {}, testConfig = {}) => {
+export const generatePluginCss = (testConfig = {}) => {
   // TODO: Allow users to specify which version of Tailwind to use?
   // TODO: Allow users to configure what is it that the helper generates aka `@tailwind utilities`
   const customizer = (objValue, srcValue, key) => {
@@ -140,7 +136,7 @@ export const generatePluginCss = (tailwindConfig = {}, testConfig = {}) => {
     variants: [],
   }
 
-  const configs = [tailwindConfig, sandboxConfig, testConfig]
+  const configs = [sandboxConfig, testConfig]
   const postcssPlugins = [
     tailwindcss(_.mergeWith({}, ...configs, customizer)),
   ]

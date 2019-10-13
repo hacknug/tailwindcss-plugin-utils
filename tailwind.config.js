@@ -1,6 +1,3 @@
-const plugin = require('./src/plugin.js')
-const pluginOptions = {}
-
 module.exports = {
   theme: {
     textColor: {}, // Forces using `bgColor` as fallback
@@ -19,6 +16,4 @@ module.exports = {
       '1/2': '50%',
     },
   },
-
-  plugins: [plugin(pluginOptions)],
 }
