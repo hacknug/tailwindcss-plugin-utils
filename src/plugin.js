@@ -3,7 +3,7 @@ import defaultConfig from '../tailwind.config.js'
 
 module.exports = (pluginOptions) => ({
   config: defaultConfig,
-  handler: (coreUtils) => buildPlugin(coreUtils, pluginOptions, [
+  handler: (coreUtils) => buildPlugin(coreUtils, [
     { key: ['columnCount'], base: 'col-count' },
     { key: ['columnGap', 'gap', 'gridGap'], base: 'col-gap' },
     { key: ['columnSpan'], base: 'col-span' },

@@ -73,7 +73,7 @@ export const getSettings = (theme, themeKey, fallbackKeys = []) => {
  * @param {Object} pluginRecipes
  */
 // TODO: Rename to denote it ONLY adds utilities
-export const buildPlugin = (coreUtils, pluginOptions, pluginRecipes) => {
+export const buildPlugin = (coreUtils, pluginRecipes) => {
   // TODO: Add support for String recipes?
   const prepareRecipe = (recipe) => {
     const {
