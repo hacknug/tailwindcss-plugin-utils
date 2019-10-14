@@ -83,7 +83,7 @@ describe('buildConfigFromRecipe()', () => {
 })
 
 describe('generatePluginCss()', () => {
-  const commonConfig = { plugins: [ plugin({ options: true }) ] }
+  const commonConfig = { plugins: [plugin({ options: true })] }
 
   test('default utilities', () => {
     const testConfig = { ...commonConfig }

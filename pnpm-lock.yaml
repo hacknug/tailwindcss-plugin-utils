@@ -2,7 +2,7 @@ dependencies:
   flat: 4.1.0
   lodash: 4.17.15
   postcss: 7.0.18
-  tailwindcss: 1.1.2
+  tailwindcss: /@hacknug/tailwindcss/1.1.2
 devDependencies:
   '@babel/cli': 7.6.4_@babel+core@7.6.4
   '@babel/core': 7.6.4
@@ -704,7 +704,7 @@ packages:
       '@babel/plugin-transform-unicode-regex': 7.6.2_@babel+core@7.6.4
       '@babel/types': 7.6.3
       browserslist: 4.7.0
-      core-js-compat: 3.2.1
+      core-js-compat: 3.3.1
       invariant: 2.2.4
       js-levenshtein: 1.1.6
       semver: 5.7.1
@@ -753,6 +753,29 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-r5160ogAvGyHsal38Kux7YYtodEKOj89RGb28ht1jh3SJb08VwRwAKKJL0bGb04Zd/3r9FL3BFIc3bBidYffCA==
+  /@hacknug/tailwindcss/1.1.2:
+    dependencies:
+      autoprefixer: 9.6.5
+      bytes: 3.1.0
+      chalk: 2.4.2
+      detective: 5.2.0
+      fs-extra: 8.1.0
+      lodash: 4.17.15
+      node-emoji: 1.10.0
+      normalize.css: 8.0.1
+      postcss: 7.0.18
+      postcss-functions: 3.0.0
+      postcss-js: 2.0.3
+      postcss-nested: 4.1.2
+      postcss-selector-parser: 6.0.2
+      pretty-hrtime: 1.0.3
+      reduce-css-calc: 2.1.6
+    dev: false
+    engines:
+      node: '>=8.9.0'
+    hasBin: true
+    resolution:
+      integrity: sha512-Uss1z8xgwlNXfkJJGNneWu3k3fvQfvH2AeuFFIUR+LlPA4+fpWpXFpIQ50jwF/Q/aMxZHA/bMcSYJ2DzSd21iA==
   /@iarna/toml/2.2.3:
     dev: true
     resolution:
@@ -939,13 +962,13 @@ packages:
       node: '>= 8'
     resolution:
       integrity: sha512-1V9XOY4rDW0rehzbrcqAmHnz8e7SKvX27gh8Gt2WgB0+pdzdiLV83p72kZPU+jvMbS1qU5mauP2iOvO8rhmurQ==
-  /@octokit/endpoint/5.4.0:
+  /@octokit/endpoint/5.4.1:
     dependencies:
       is-plain-object: 3.0.0
       universal-user-agent: 4.0.0
     dev: true
     resolution:
-      integrity: sha512-DWTNgEKg5KXzvNjKTzcFTnkZiL7te6pQxxumvxPjyjDpcY5V3xzywnNu1WVqySY3Ct1flF/kAoyDdZos6acq3Q==
+      integrity: sha512-iwn46orWg3F4iqIzAVRfbzhnROyx7BQ7zJE0B7SEeaMIBvk3qmWtswtRk14QkMNUuNiCHQ6mAM00VJxWqrdM1g==
   /@octokit/request-error/1.0.4:
     dependencies:
       deprecation: 2.3.1
@@ -953,9 +976,9 @@ packages:
     dev: true
     resolution:
       integrity: sha512-L4JaJDXn8SGT+5G0uX79rZLv0MNJmfGa4vb4vy1NnpjSnWDLJRy6m90udGwvMmavwsStgbv2QNkPzzTCMmL+ig==
-  /@octokit/request/5.2.0:
+  /@octokit/request/5.2.1:
     dependencies:
-      '@octokit/endpoint': 5.4.0
+      '@octokit/endpoint': 5.4.1
       '@octokit/request-error': 1.0.4
       deprecation: 2.3.1
       is-plain-object: 3.0.0
@@ -964,10 +987,10 @@ packages:
       universal-user-agent: 4.0.0
     dev: true
     resolution:
-      integrity: sha512-p8WDdywOrMMbN1eMgR86f2KwKMxTTNipqsibIKDJ6oRi910rdz2JR3ufiLB8U8KtQ0P/HdP0df8vQrUDzYaUzQ==
+      integrity: sha512-onjQo4QKyiMAqLM6j3eH8vWw1LEfNCpoZUl6a+TrZVJM1wysBC8F0GhK9K/Vc9UsScSmVs2bstOVD34xpQ2wqQ==
   /@octokit/rest/16.33.0:
     dependencies:
-      '@octokit/request': 5.2.0
+      '@octokit/request': 5.2.1
       '@octokit/request-error': 1.0.4
       atob-lite: 2.0.0
       before-after-hook: 2.1.0
@@ -1087,20 +1110,34 @@ packages:
     dev: true
     resolution:
       integrity: sha512-clfQEh21R+D0leSbUdWf3OcfqyaCSAQ8Ryq00bofSekfr9W8u1jyYZo6ir0xu9Gtcf7BjcHJpnbZH7JOCpP60A==
-  /acorn-jsx/5.0.2_acorn@7.1.0:
+  /acorn-jsx/5.1.0_acorn@7.1.0:
     dependencies:
       acorn: 7.1.0
     dev: true
     peerDependencies:
       acorn: ^6.0.0 || ^7.0.0
     resolution:
-      integrity: sha512-tiNTrP1MP0QrChmD2DdupCr6HWSFeKVw5d/dHTu4Y7rkAkRhU/Dt7dphAfIUyxtHpl/eBVip5uTNSpQJHylpAw==
+      integrity: sha512-tMUqwBWfLFbJbizRmEcWSLw6HnFzfdJs2sOJEOwwtVPMoH/0Ay+E703oZz78VSXZiiDcZrQ5XKjPIUQixhmgVw==
+  /acorn-node/1.8.2:
+    dependencies:
+      acorn: 7.1.0
+      acorn-walk: 7.0.0
+      xtend: 4.0.2
+    dev: false
+    resolution:
+      integrity: sha512-8mt+fslDufLYntIoPAaIMUe/lrbrehIiwmR3t2k9LljIzoigEPF27eLk2hy8zSGzmR/ogr7zbRKINMo1u0yh5A==
   /acorn-walk/6.2.0:
     dev: true
     engines:
       node: '>=0.4.0'
     resolution:
       integrity: sha512-7evsyfH1cLOCdAzZAd43Cic04yKydNx0cF+7tiA19p1XnLLPU4dpCQOqpjqwokFe//vS0QqfqqjCS2JkiIs0cA==
+  /acorn-walk/7.0.0:
+    dev: false
+    engines:
+      node: '>=0.4.0'
+    resolution:
+      integrity: sha512-7Bv1We7ZGuU79zZbb6rRqcpxo3OY+zrdtloZWoyD8fmGX+FeXRjE+iuGkZjSXLVovLzrsvMGMy0EkwA0E0umxg==
   /acorn/5.7.3:
     dev: true
     engines:
@@ -1116,7 +1153,6 @@ packages:
     resolution:
       integrity: sha512-/czfa8BwS88b9gWQVhc8eknunSA2DoJpJyTQkhheIf5E48u1N0R4q/YxxsAeqRrmK9TQ/uYfgLDfZo91UlANIA==
   /acorn/7.1.0:
-    dev: true
     engines:
       node: '>=0.4.0'
     hasBin: true
@@ -1280,7 +1316,7 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
-  /autoprefixer/9.6.4:
+  /autoprefixer/9.6.5:
     dependencies:
       browserslist: 4.7.0
       caniuse-lite: 1.0.30000999
@@ -1294,7 +1330,7 @@ packages:
       node: '>=6.0.0'
     hasBin: true
     resolution:
-      integrity: sha512-Koz2cJU9dKOxG8P1f8uVaBntOv9lP4yz9ffWvWaicv9gHBPhpQB22nGijwd8gqW9CNT+UdkbQOQNLVI8jN1ZfQ==
+      integrity: sha512-rGd50YV8LgwFQ2WQp4XzOTG69u1qQsXn0amww7tjqV5jJuNazgFKYEVItEBngyyvVITKOg20zr2V+9VsrXJQ2g==
   /aws-sign2/0.7.0:
     dev: true
     resolution:
@@ -1742,13 +1778,15 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-Z29us8OZl8LuGsOpJP1hJHSPV40=
-  /core-js-compat/3.2.1:
+  /core-js-compat/3.3.1:
     dependencies:
       browserslist: 4.7.0
       semver: 6.3.0
     dev: true
+    engines:
+      node: '>=8.0.0'
     resolution:
-      integrity: sha512-MwPZle5CF9dEaMYdDeWm73ao/IflDH+FjeJCWEADcEgFSE9TLimFKwJsfmkwzI8eC0Aj0mgvMDjeQjrElkz4/A==
+      integrity: sha512-R5gisVHlU8ZXrr05qjER3SJ8pp8cYxhWQ0doIfuGhLqtHf9b3eLzzr1ZEfI7MX9JJFwVT+HuyToULupnHl0Ghw==
   /core-util-is/1.0.2:
     dev: true
     resolution:
@@ -1919,6 +1957,10 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-jwK2UV4cnPpbcG7+VRARKTZPUWowwXA8bzH5NP6ud0oeAxyYPuGZUAC7hMugpCdz4BeSZl2Dl9k66CHJ/46ZYQ==
+  /defined/1.0.0:
+    dev: false
+    resolution:
+      integrity: sha1-yY2bzvdWdBiOEQlpFRGZ45sfppM=
   /delayed-stream/1.0.0:
     dev: true
     engines:
@@ -1953,6 +1995,17 @@ packages:
       node: '>=4.0.0'
     resolution:
       integrity: sha1-whCMu/CWTae8B0ZFtq0dO4CmvW0=
+  /detective/5.2.0:
+    dependencies:
+      acorn-node: 1.8.2
+      defined: 1.0.0
+      minimist: 1.2.0
+    dev: false
+    engines:
+      node: '>=0.8.0'
+    hasBin: true
+    resolution:
+      integrity: sha512-6SsIx+nUUbuK0EthKjv0zrdnajCCXVYGmbYYiYjFVpzcjwEs/JMDZ8tPRG29J/HhN56t3GJp2cGSWDRjjot8Pg==
   /diff-sequences/24.9.0:
     dev: true
     engines:
@@ -2244,7 +2297,7 @@ packages:
   /espree/6.1.1:
     dependencies:
       acorn: 7.1.0
-      acorn-jsx: 5.0.2_acorn@7.1.0
+      acorn-jsx: 5.1.0_acorn@7.1.0
       eslint-visitor-keys: 1.1.0
     dev: true
     engines:
@@ -4184,7 +4237,6 @@ packages:
     resolution:
       integrity: sha1-hX/Kv8M5fSYluCKCYuhqp6ARsF0=
   /minimist/1.2.0:
-    dev: true
     resolution:
       integrity: sha1-o1AIsg9BOD7sH7kU9M1d95omQoQ=
   /mixin-deep/1.3.2:
@@ -4790,7 +4842,7 @@ packages:
       integrity: sha512-zS59pAk3deu6dVHyrGqmC3oDXBdNdajk4k1RyxeVXCrcEDBUBHoIhE4QTsmhxgzXxsaqFDAkUZfmMa5f/N/79w==
   /postcss-nested/4.1.2:
     dependencies:
-      postcss: 7.0.17
+      postcss: 7.0.18
       postcss-selector-parser: 5.0.0
     dev: false
     resolution:
@@ -4833,16 +4885,6 @@ packages:
       node: '>=4.0.0'
     resolution:
       integrity: sha512-soOk1h6J3VMTZtVeVpv15/Hpdl2cBLX3CAw4TAbkpTJiNPk9YP/zWcD1ND+xEtvyuuvKzbxliTOIyvkSeSJ6ag==
-  /postcss/7.0.17:
-    dependencies:
-      chalk: 2.4.2
-      source-map: 0.6.1
-      supports-color: 6.1.0
-    dev: false
-    engines:
-      node: '>=6.0.0'
-    resolution:
-      integrity: sha512-546ZowA+KZ3OasvQZHsbuEpysvwTZNGJv9EfyCQdsIDltPSWHAeTQ5fQy/Npi2ZDtLI3zs7Ps/p6wThErhm9fQ==
   /postcss/7.0.18:
     dependencies:
       chalk: 2.4.2
@@ -5772,28 +5814,6 @@ packages:
       node: '>=6.0.0'
     resolution:
       integrity: sha512-wmEc8m4fjnob4gt5riFRtTu/6+4rSe12TpAELNSqHMfF3IqnA+CH37USM6/YR3qRZv7e56kAEAtd6nKZaxe0Ug==
-  /tailwindcss/1.1.2:
-    dependencies:
-      autoprefixer: 9.6.4
-      bytes: 3.1.0
-      chalk: 2.4.2
-      fs-extra: 8.1.0
-      lodash: 4.17.15
-      node-emoji: 1.10.0
-      normalize.css: 8.0.1
-      postcss: 7.0.18
-      postcss-functions: 3.0.0
-      postcss-js: 2.0.3
-      postcss-nested: 4.1.2
-      postcss-selector-parser: 6.0.2
-      pretty-hrtime: 1.0.3
-      reduce-css-calc: 2.1.6
-    dev: false
-    engines:
-      node: '>=8.9.0'
-    hasBin: true
-    resolution:
-      integrity: sha512-mcTzZHXMipnQY9haB17baNJmBTkYYcC8ljfMdB9/97FfhKJIzlglJcyGythuQTOu7r/QIbLfZYYWZhAvaGj95A==
   /term-size/1.2.0:
     dependencies:
       execa: 0.7.0
@@ -6265,6 +6285,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-A5CUptxDsvxKJEU3yO6DuWBSJz/qizqzJKOMIfUJHETbBw/sFaDxgd6fxm1ewUaM0jZ444Fc5vC5ROYurg/4Pw==
+  /xtend/4.0.2:
+    dev: false
+    engines:
+      node: '>=0.4'
+    resolution:
+      integrity: sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
   /y18n/4.0.0:
     dev: true
     resolution:
@@ -6321,4 +6347,4 @@ specifiers:
   postcss: ^7.0.18
   release-it: ^12.4.3
   rimraf: ^3.0.0
-  tailwindcss: ^1.1.2
+  tailwindcss: 'npm:@hacknug/tailwindcss@^1.1.2'
