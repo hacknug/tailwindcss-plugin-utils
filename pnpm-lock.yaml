@@ -2,7 +2,7 @@ dependencies:
   flat: 4.1.0
   lodash: 4.17.15
   postcss: 7.0.18
-  tailwindcss: /@hacknug/tailwindcss/1.1.2
+  tailwindcss: 1.2.0-canary.0
 devDependencies:
   '@babel/cli': 7.6.4_@babel+core@7.6.4
   '@babel/core': 7.6.4
@@ -704,7 +704,7 @@ packages:
       '@babel/plugin-transform-unicode-regex': 7.6.2_@babel+core@7.6.4
       '@babel/types': 7.6.3
       browserslist: 4.7.0
-      core-js-compat: 3.3.1
+      core-js-compat: 3.3.2
       invariant: 2.2.4
       js-levenshtein: 1.1.6
       semver: 5.7.1
@@ -753,29 +753,6 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-r5160ogAvGyHsal38Kux7YYtodEKOj89RGb28ht1jh3SJb08VwRwAKKJL0bGb04Zd/3r9FL3BFIc3bBidYffCA==
-  /@hacknug/tailwindcss/1.1.2:
-    dependencies:
-      autoprefixer: 9.6.5
-      bytes: 3.1.0
-      chalk: 2.4.2
-      detective: 5.2.0
-      fs-extra: 8.1.0
-      lodash: 4.17.15
-      node-emoji: 1.10.0
-      normalize.css: 8.0.1
-      postcss: 7.0.18
-      postcss-functions: 3.0.0
-      postcss-js: 2.0.3
-      postcss-nested: 4.1.2
-      postcss-selector-parser: 6.0.2
-      pretty-hrtime: 1.0.3
-      reduce-css-calc: 2.1.6
-    dev: false
-    engines:
-      node: '>=8.9.0'
-    hasBin: true
-    resolution:
-      integrity: sha512-Uss1z8xgwlNXfkJJGNneWu3k3fvQfvH2AeuFFIUR+LlPA4+fpWpXFpIQ50jwF/Q/aMxZHA/bMcSYJ2DzSd21iA==
   /@iarna/toml/2.2.3:
     dev: true
     resolution:
@@ -1778,15 +1755,13 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-Z29us8OZl8LuGsOpJP1hJHSPV40=
-  /core-js-compat/3.3.1:
+  /core-js-compat/3.3.2:
     dependencies:
       browserslist: 4.7.0
       semver: 6.3.0
     dev: true
-    engines:
-      node: '>=8.0.0'
     resolution:
-      integrity: sha512-R5gisVHlU8ZXrr05qjER3SJ8pp8cYxhWQ0doIfuGhLqtHf9b3eLzzr1ZEfI7MX9JJFwVT+HuyToULupnHl0Ghw==
+      integrity: sha512-gfiK4QnNXhnnHVOIZst2XHdFfdMTPxtR0EGs0TdILMlGIft+087oH6/Sw2xTTIjpWXC9vEwsJA8VG3XTGcmO5g==
   /core-util-is/1.0.2:
     dev: true
     resolution:
@@ -5814,6 +5789,29 @@ packages:
       node: '>=6.0.0'
     resolution:
       integrity: sha512-wmEc8m4fjnob4gt5riFRtTu/6+4rSe12TpAELNSqHMfF3IqnA+CH37USM6/YR3qRZv7e56kAEAtd6nKZaxe0Ug==
+  /tailwindcss/1.2.0-canary.0:
+    dependencies:
+      autoprefixer: 9.6.5
+      bytes: 3.1.0
+      chalk: 2.4.2
+      detective: 5.2.0
+      fs-extra: 8.1.0
+      lodash: 4.17.15
+      node-emoji: 1.10.0
+      normalize.css: 8.0.1
+      postcss: 7.0.18
+      postcss-functions: 3.0.0
+      postcss-js: 2.0.3
+      postcss-nested: 4.1.2
+      postcss-selector-parser: 6.0.2
+      pretty-hrtime: 1.0.3
+      reduce-css-calc: 2.1.6
+    dev: false
+    engines:
+      node: '>=8.9.0'
+    hasBin: true
+    resolution:
+      integrity: sha512-XIeW456HRC7TTnmyI3XyzuCPZIoyv4V9crAbaRoOT69xf+LRNwz2STPSzbE5nTfMg63nC36ygtm/cbztCYC8kA==
   /term-size/1.2.0:
     dependencies:
       execa: 0.7.0
@@ -6347,4 +6345,4 @@ specifiers:
   postcss: ^7.0.18
   release-it: ^12.4.3
   rimraf: ^3.0.0
-  tailwindcss: 'npm:@hacknug/tailwindcss@^1.1.2'
+  tailwindcss: ^1.2.0-canary.0
