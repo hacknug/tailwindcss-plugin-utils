@@ -34,7 +34,7 @@
     "flat": "^5.0.2",
     "lodash": "^4.17.15",
     "postcss": "^7.0.18",
-    "tailwindcss": "^1.1.2"
+    "tailwindcss": "^2.0.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.4",
