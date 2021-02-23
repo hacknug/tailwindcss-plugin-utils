@@ -5,6 +5,8 @@ import {
   generatePluginCss,
 } from './index'
 
+import plugin from './plugin.js'
+
 import resolveConfig from 'tailwindcss/resolveConfig'
 import tailwindConfig from '../tailwind.config.js'
 
@@ -12,19 +14,6 @@ import escapeClassName from 'tailwindcss/lib/util/escapeClassName'
 import prefixSelector from 'tailwindcss/lib/util/prefixSelector'
 
 expect.extend({ toMatchCss: require('jest-matcher-css') })
-
-/**
- * MOCKS:
- * - coreUtils()
- */
-
-const config = resolveConfig(tailwindConfig)
-const coreUtils = {
-  config: resolveConfig(tailwindConfig),
-  theme: (themeKey, fallbackValue) => config.theme[themeKey] || fallbackValue,
-  prefix: (selector) => prefixSelector(config.prefix, selector),
-  e: escapeClassName,
-}
 
 /**
  * TESTS:
@@ -53,7 +42,20 @@ describe('handleName()', () => {
   })
 })
 
+// TODO: Stop depending on passing `config` around. Core takes care of it.
 describe('buildConfigFromRecipe()', () => {
+  /**
+   * MOCKS:
+   * - coreUtils()
+   */
+  const config = resolveConfig(tailwindConfig)
+  const coreUtils = {
+    config: resolveConfig(tailwindConfig),
+    theme: (themeKey, fallbackValue) => config.theme[themeKey] || fallbackValue,
+    prefix: (selector) => prefixSelector(config.prefix, selector),
+    e: escapeClassName,
+  }
+
   test('from theme() object', () => {
     expect(buildConfigFromRecipe(coreUtils, { config: tailwindConfig, key: ['backgroundColor'] }))
       .toStrictEqual({ tailwind: { backgroundColor: '#38b2ac' } })
@@ -81,8 +83,10 @@ describe('buildConfigFromRecipe()', () => {
 })
 
 describe('generatePluginCss()', () => {
+  const commonConfig = { plugins: [plugin({ options: true })] }
+
   test('default utilities', () => {
-    const testConfig = {}
+    const testConfig = { ...commonConfig }
     const expectedCss = `
       .col-count-2 { column-count: 2 }
       .col-count-4 { column-count: 4 }
@@ -98,11 +102,10 @@ describe('generatePluginCss()', () => {
       .text-stroke-2 { -webkit-text-stroke-width: 2px }
     `
 
-    return generatePluginCss(tailwindConfig, testConfig)
-      .then(css => expect(css).toMatchCss(expectedCss))
+    return generatePluginCss(testConfig).then(css => expect(css).toMatchCss(expectedCss))
   })
   test('responsive variants', () => {
-    const testConfig = { variants: ['responsive'] }
+    const testConfig = { ...commonConfig, variants: ['responsive'] }
     const expectedCss = `
       .col-count-2 { column-count: 2 }
       .col-count-4 { column-count: 4 }
@@ -133,11 +136,11 @@ describe('generatePluginCss()', () => {
       }
     `
 
-    return generatePluginCss(tailwindConfig, testConfig)
-      .then(css => expect(css).toMatchCss(expectedCss))
+    return generatePluginCss(testConfig).then(css => expect(css).toMatchCss(expectedCss))
   })
   test('handles merging configs correctly', () => {
     const testConfig = {
+      ...commonConfig,
       theme: { screens: { md: '768px' } },
       variants: ['responsive'],
     }
@@ -186,11 +189,11 @@ describe('generatePluginCss()', () => {
       }
     `
 
-    return generatePluginCss(tailwindConfig, testConfig)
-      .then(css => expect(css).toMatchCss(expectedCss))
+    return generatePluginCss(testConfig).then(css => expect(css).toMatchCss(expectedCss))
   })
   test('handles merging mixed `variants`', () => {
     const testConfig = {
+      ...commonConfig,
       variants: {
         columnCount: ['focus'],
         columnGap: ['hover'],
@@ -227,11 +230,10 @@ describe('generatePluginCss()', () => {
       }
     `
 
-    return generatePluginCss(tailwindConfig, testConfig)
-      .then(css => expect(css).toMatchCss(expectedCss))
+    return generatePluginCss(testConfig).then(css => expect(css).toMatchCss(expectedCss))
   })
   test('handles nested recipes', () => {
-    const testConfig = {}
+    const testConfig = { ...commonConfig }
     const expectedCss = `
       .col-count-2 { column-count: 2 }
       .col-count-4 { column-count: 4 }
@@ -247,8 +249,7 @@ describe('generatePluginCss()', () => {
       .text-stroke-2 { -webkit-text-stroke-width: 2px }
     `
 
-    return generatePluginCss(tailwindConfig, testConfig)
-      .then(css => expect(css).toMatchCss(expectedCss))
+    return generatePluginCss(testConfig).then(css => expect(css).toMatchCss(expectedCss))
   })
 })
 
