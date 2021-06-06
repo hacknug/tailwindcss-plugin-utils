@@ -33,7 +33,7 @@
   "dependencies": {
     "flat": "^5.0.2",
     "lodash": "^4.17.15",
-    "postcss": "^7.0.18",
+    "postcss": "^8.3.0",
     "tailwindcss": "^1.1.2"
   },
   "devDependencies": {
