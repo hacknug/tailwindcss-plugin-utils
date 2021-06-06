@@ -1,0 +1,45 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "10:00"
+    timezone: Europe/Madrid
+  open-pull-requests-limit: 10
+  versioning-strategy: widen
+  ignore:
+  - dependency-name: postcss
+    versions:
+    - 8.2.10
+    - 8.2.11
+    - 8.2.12
+    - 8.2.4
+    - 8.2.5
+    - 8.2.7
+    - 8.2.9
+  - dependency-name: eslint
+    versions:
+    - 7.18.0
+    - 7.19.0
+    - 7.20.0
+    - 7.21.0
+    - 7.22.0
+    - 7.23.0
+    - 7.24.0
+  - dependency-name: release-it
+    versions:
+    - 13.1.2
+    - 14.2.2
+    - 14.3.0
+    - 14.4.0
+    - 14.4.1
+    - 14.5.0
+    - 14.5.1
+    - 14.6.0
+  - dependency-name: tailwindcss
+    versions:
+    - 2.0.3
+    - 2.0.4
+    - 2.1.0
+    - 2.1.1
